@@ -823,7 +823,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 5. STATISTIK DEMOGRAFI SECTION (DESAIN & LAYOUT BARU) */}
+      {/* 5. STATISTIK DEMOGRAFI SECTION */}
       <section
         id="statistik"
         style={{
