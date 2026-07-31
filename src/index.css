@@ -4,9 +4,5 @@ html {
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 90px; /* Offset setinggi navbar agar judul tidak tertutup */
-}
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 95px; /* Memberikan jarak aman agar konten tidak tertutup navbar sticky */
+  scroll-padding-top: 120px; /* Dinaikin agar jarak aman ke bawah navbar lebih lega */
 }

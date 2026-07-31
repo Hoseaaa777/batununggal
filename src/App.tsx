@@ -496,7 +496,7 @@ export default function App() {
       <section
         id="beranda"
         style={{
-          scrollMarginTop: "90px",
+          scrollMarginTop: "120px",
           padding: "2rem",
           maxWidth: "1200px",
           margin: "0 auto",
@@ -704,7 +704,7 @@ export default function App() {
       <section
         id="profil"
         style={{
-          scrollMarginTop: "90px",
+          scrollMarginTop: "120px",
           padding: "2rem",
           maxWidth: "1200px",
           margin: "0 auto",
@@ -753,7 +753,7 @@ export default function App() {
       <section
         id="aparat"
         style={{
-          scrollMarginTop: "90px",
+          scrollMarginTop: "120px",
           padding: "2rem",
           maxWidth: "1200px",
           margin: "0 auto",
@@ -827,7 +827,7 @@ export default function App() {
       <section
         id="statistik"
         style={{
-          scrollMarginTop: "90px",
+          scrollMarginTop: "120px",
           padding: "2.5rem 2rem",
           maxWidth: "1200px",
           margin: "0 auto",
@@ -1242,7 +1242,7 @@ export default function App() {
       <section
         id="berita"
         style={{
-          scrollMarginTop: "90px",
+          scrollMarginTop: "120px",
           padding: "2rem",
           maxWidth: "1200px",
           margin: "0 auto",
@@ -1451,7 +1451,7 @@ export default function App() {
       <section
         id="umkm"
         style={{
-          scrollMarginTop: "90px",
+          scrollMarginTop: "120px",
           padding: "2rem",
           maxWidth: "1200px",
           margin: "0 auto",
@@ -1540,7 +1540,7 @@ export default function App() {
       <section
         id="cctv"
         style={{
-          scrollMarginTop: "90px",
+          scrollMarginTop: "120px",
           backgroundColor: "#0f172a",
           color: "#ffffff",
           padding: "3rem 2rem",
@@ -1726,7 +1726,7 @@ export default function App() {
       <section
         id="pengaduan"
         style={{
-          scrollMarginTop: "90px",
+          scrollMarginTop: "120px",
           padding: "3rem 2rem",
           maxWidth: "700px",
           margin: "2rem auto 0 auto",
