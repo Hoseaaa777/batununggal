@@ -2,3 +2,7 @@
 html {
   scroll-behavior: smooth;
 }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px; /* Offset setinggi navbar agar judul tidak tertutup */
+}

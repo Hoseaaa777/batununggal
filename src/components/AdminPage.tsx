@@ -12,18 +12,20 @@ import {
   Trash2,
   ArrowLeft,
   LogOut,
-  Lock,
   AlertCircle,
   Download,
-  Phone,
   Eye,
   CheckCircle2,
   Building2,
+  TrendingUp,
+  Activity,
+  Calendar,
+  Layers,
 } from "lucide-react";
 import {
   ResponsiveContainer,
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   BarChart,
   Bar,
   XAxis,
@@ -33,6 +35,7 @@ import {
   Legend,
 } from "recharts";
 
+// --- INTERFACES ---
 export interface Pengaduan {
   id: string;
   nama: string;
@@ -208,11 +211,12 @@ export const AdminPage: React.FC<AdminPageProps> = ({
       <div
         style={{
           minHeight: "100vh",
-          backgroundColor: "#f1f5f9",
+          backgroundColor: "#0f172a",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           padding: "1.5rem",
+          fontFamily: "system-ui, sans-serif",
         }}
       >
         <button
@@ -222,74 +226,77 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             position: "absolute",
             top: "24px",
             left: "24px",
-            backgroundColor: "#ffffff",
-            color: "#334155",
-            border: "1px solid #cbd5e1",
-            padding: "9px 16px",
-            borderRadius: "8px",
+            backgroundColor: "rgba(255,255,255,0.1)",
+            color: "#f8fafc",
+            border: "1px solid rgba(255,255,255,0.2)",
+            padding: "10px 18px",
+            borderRadius: "10px",
             fontWeight: 700,
             fontSize: "0.85rem",
             cursor: "pointer",
             display: "inline-flex",
             alignItems: "center",
             gap: "8px",
+            backdropFilter: "blur(10px)",
           }}
         >
-          <ArrowLeft size={16} /> Kembali ke Portal Kecamatan
+          <ArrowLeft size={16} /> Kembali ke Portal Publik
         </button>
 
         <div
           style={{
-            backgroundColor: "#ffffff",
-            borderRadius: "16px",
-            border: "1px solid #e2e8f0",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+            backgroundColor: "#1e293b",
+            borderRadius: "20px",
+            border: "1px solid #334155",
+            boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
             maxWidth: "420px",
             width: "100%",
             padding: "2.5rem",
             boxSizing: "border-box",
+            color: "#f8fafc",
           }}
         >
-          <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
             <div
               style={{
-                backgroundColor: "#e1f2e5",
-                width: "60px",
-                height: "60px",
-                borderRadius: "50%",
+                background: "linear-gradient(135deg, #0d9488 0%, #4f46e5 100%)",
+                width: "64px",
+                height: "64px",
+                borderRadius: "16px",
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
                 marginBottom: "1rem",
+                boxShadow: "0 10px 20px rgba(13,148,136,0.3)",
               }}
             >
-              <Building2 color="#00a86b" size={28} />
+              <Building2 color="#ffffff" size={32} />
             </div>
             <h2
               style={{
                 margin: "0 0 6px 0",
-                fontSize: "1.5rem",
+                fontSize: "1.6rem",
                 fontWeight: 800,
-                color: "#0f172a",
+                letterSpacing: "-0.5px",
               }}
             >
-              Admin Batununggal
+              Pusat Kontrol Admin
             </h2>
-            <p style={{ margin: 0, fontSize: "0.85rem", color: "#64748b" }}>
-              Sistem Kelola Portal Kecamatan Digital
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "#94a3b8" }}>
+              Kecamatan Batununggal Kota Bandung
             </p>
           </div>
 
           {errorMsg && (
             <div
               style={{
-                backgroundColor: "#fef2f2",
-                color: "#dc2626",
-                padding: "10px 14px",
-                borderRadius: "8px",
-                fontSize: "0.825rem",
+                backgroundColor: "rgba(239,68,68,0.15)",
+                color: "#fca5a5",
+                padding: "12px 14px",
+                borderRadius: "10px",
+                fontSize: "0.85rem",
                 marginBottom: "1.25rem",
-                border: "1px solid #fecaca",
+                border: "1px solid rgba(239,68,68,0.3)",
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
@@ -301,7 +308,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
 
           <form
             onSubmit={handleLogin}
-            style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}
+            style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}
           >
             <div>
               <label
@@ -309,25 +316,28 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   fontSize: "0.85rem",
                   fontWeight: 700,
                   display: "block",
-                  marginBottom: "6px",
-                  color: "#1e293b",
+                  marginBottom: "8px",
+                  color: "#cbd5e1",
                 }}
               >
-                Username Admin
+                Username
               </label>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Masukkan username"
+                placeholder="Masukkan username admin"
                 required
                 style={{
                   width: "100%",
-                  padding: "11px 14px",
-                  borderRadius: "8px",
-                  border: "1px solid #cbd5e1",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: "1px solid #475569",
+                  backgroundColor: "#0f172a",
+                  color: "#ffffff",
                   boxSizing: "border-box",
                   fontSize: "0.9rem",
+                  outline: "none",
                 }}
               />
             </div>
@@ -338,8 +348,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   fontSize: "0.85rem",
                   fontWeight: 700,
                   display: "block",
-                  marginBottom: "6px",
-                  color: "#1e293b",
+                  marginBottom: "8px",
+                  color: "#cbd5e1",
                 }}
               >
                 Password
@@ -352,11 +362,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 required
                 style={{
                   width: "100%",
-                  padding: "11px 14px",
-                  borderRadius: "8px",
-                  border: "1px solid #cbd5e1",
+                  padding: "12px 14px",
+                  borderRadius: "10px",
+                  border: "1px solid #475569",
+                  backgroundColor: "#0f172a",
+                  color: "#ffffff",
                   boxSizing: "border-box",
                   fontSize: "0.9rem",
+                  outline: "none",
                 }}
               />
             </div>
@@ -364,18 +377,19 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             <button
               type="submit"
               style={{
-                backgroundColor: "#00a86b",
+                background: "linear-gradient(135deg, #0d9488 0%, #0f766e 100%)",
                 color: "#ffffff",
                 border: "none",
-                padding: "12px",
-                borderRadius: "8px",
+                padding: "14px",
+                borderRadius: "10px",
                 fontWeight: 700,
                 fontSize: "0.95rem",
                 cursor: "pointer",
                 marginTop: "0.5rem",
+                boxShadow: "0 10px 15px -3px rgba(13,148,136,0.3)",
               }}
             >
-              Masuk Dashboard Kecamatan
+              Otorisasi & Masuk System
             </button>
           </form>
         </div>
@@ -399,13 +413,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#f8fafc",
+        backgroundColor: "#f1f5f9",
         display: "flex",
         color: "#0f172a",
         fontFamily: "system-ui, sans-serif",
       }}
     >
-      {/* FLOATING TOAST */}
+      {/* FLOATING TOAST NOTIFICATION */}
       {toastMsg && (
         <div
           style={{
@@ -414,41 +428,42 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             right: "24px",
             backgroundColor: "#0f172a",
             color: "#ffffff",
-            padding: "12px 20px",
-            borderRadius: "10px",
-            boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+            padding: "12px 22px",
+            borderRadius: "12px",
+            boxShadow: "0 20px 25px -5px rgba(0,0,0,0.3)",
             display: "flex",
             alignItems: "center",
             gap: "10px",
             zIndex: 9999,
             fontSize: "0.875rem",
             fontWeight: 600,
-            borderLeft: "4px solid #00a86b",
+            borderLeft: "5px solid #0d9488",
           }}
         >
-          <CheckCircle2 color="#00a86b" size={20} />
+          <CheckCircle2 color="#0d9488" size={20} />
           <span>{toastMsg}</span>
         </div>
       )}
 
-      {/* SIDEBAR */}
+      {/* DARK SLEEK SIDEBAR */}
       <aside
         style={{
-          width: "260px",
-          backgroundColor: "#ffffff",
-          borderRight: "1px solid #e2e8f0",
+          width: "270px",
+          backgroundColor: "#0f172a",
+          color: "#f8fafc",
           display: "flex",
           flexDirection: "column",
           flexShrink: 0,
           position: "sticky",
           top: 0,
           height: "100vh",
+          borderRight: "1px solid #1e293b",
         }}
       >
         <div
           style={{
-            padding: "1.5rem",
-            borderBottom: "1px solid #f1f5f9",
+            padding: "1.75rem 1.5rem",
+            borderBottom: "1px solid #1e293b",
             display: "flex",
             alignItems: "center",
             gap: "12px",
@@ -456,18 +471,20 @@ export const AdminPage: React.FC<AdminPageProps> = ({
         >
           <div
             style={{
-              backgroundColor: "#00a86b",
+              background: "linear-gradient(135deg, #0d9488 0%, #4f46e5 100%)",
               color: "#fff",
-              width: "38px",
-              height: "38px",
-              borderRadius: "10px",
+              width: "42px",
+              height: "42px",
+              borderRadius: "12px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontWeight: 800,
+              fontWeight: 900,
+              fontSize: "1.1rem",
+              boxShadow: "0 4px 12px rgba(13,148,136,0.3)",
             }}
           >
-            BT
+            BTN
           </div>
           <div>
             <h1
@@ -475,13 +492,21 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 fontSize: "1rem",
                 fontWeight: 800,
                 margin: 0,
-                color: "#0f172a",
+                color: "#ffffff",
+                letterSpacing: "-0.3px",
               }}
             >
-              Portal Admin
+              BATUNUNGGAL
             </h1>
-            <p style={{ fontSize: "0.75rem", margin: 0, color: "#64748b" }}>
-              Kecamatan Batununggal
+            <p
+              style={{
+                fontSize: "0.725rem",
+                margin: 0,
+                color: "#0d9488",
+                fontWeight: 700,
+              }}
+            >
+              ADMIN CONTROL
             </p>
           </div>
         </div>
@@ -491,11 +516,23 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             padding: "1.25rem 0.85rem",
             display: "flex",
             flexDirection: "column",
-            gap: "0.35rem",
+            gap: "0.25rem",
             flexGrow: 1,
             overflowY: "auto",
           }}
         >
+          <div
+            style={{
+              fontSize: "0.7rem",
+              fontWeight: 800,
+              color: "#475569",
+              padding: "8px 12px 4px 12px",
+              letterSpacing: "0.8px",
+            }}
+          >
+            PUSAT KONTROL
+          </div>
+
           <button
             type="button"
             onClick={() => setActiveTab("dashboard")}
@@ -507,15 +544,19 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               borderRadius: "10px",
               border: "none",
               fontWeight: 700,
-              fontSize: "0.875rem",
+              fontSize: "0.85rem",
               cursor: "pointer",
               textAlign: "left",
               backgroundColor:
-                activeTab === "dashboard" ? "#e1f2e5" : "transparent",
-              color: activeTab === "dashboard" ? "#00a86b" : "#475569",
+                activeTab === "dashboard" ? "#0d9488" : "transparent",
+              color: activeTab === "dashboard" ? "#ffffff" : "#94a3b8",
+              boxShadow:
+                activeTab === "dashboard"
+                  ? "0 4px 12px rgba(13,148,136,0.3)"
+                  : "none",
             }}
           >
-            <LayoutDashboard size={18} /> Dashboard Utama
+            <LayoutDashboard size={18} /> Ringkasan Utama
           </button>
 
           <button
@@ -529,16 +570,32 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               borderRadius: "10px",
               border: "none",
               fontWeight: 700,
-              fontSize: "0.875rem",
+              fontSize: "0.85rem",
               cursor: "pointer",
               textAlign: "left",
               backgroundColor:
-                activeTab === "warga" ? "#e1f2e5" : "transparent",
-              color: activeTab === "warga" ? "#00a86b" : "#475569",
+                activeTab === "warga" ? "#0d9488" : "transparent",
+              color: activeTab === "warga" ? "#ffffff" : "#94a3b8",
+              boxShadow:
+                activeTab === "warga"
+                  ? "0 4px 12px rgba(13,148,136,0.3)"
+                  : "none",
             }}
           >
             <Users size={18} /> Data Kependudukan
           </button>
+
+          <div
+            style={{
+              fontSize: "0.7rem",
+              fontWeight: 800,
+              color: "#475569",
+              padding: "16px 12px 4px 12px",
+              letterSpacing: "0.8px",
+            }}
+          >
+            KELOLA KONTEN
+          </div>
 
           <button
             type="button"
@@ -551,11 +608,15 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               borderRadius: "10px",
               border: "none",
               fontWeight: 700,
-              fontSize: "0.875rem",
+              fontSize: "0.85rem",
               cursor: "pointer",
               textAlign: "left",
-              backgroundColor: activeTab === "umkm" ? "#e1f2e5" : "transparent",
-              color: activeTab === "umkm" ? "#00a86b" : "#475569",
+              backgroundColor: activeTab === "umkm" ? "#0d9488" : "transparent",
+              color: activeTab === "umkm" ? "#ffffff" : "#94a3b8",
+              boxShadow:
+                activeTab === "umkm"
+                  ? "0 4px 12px rgba(13,148,136,0.3)"
+                  : "none",
             }}
           >
             <Store size={18} /> Katalog UMKM
@@ -572,12 +633,16 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               borderRadius: "10px",
               border: "none",
               fontWeight: 700,
-              fontSize: "0.875rem",
+              fontSize: "0.85rem",
               cursor: "pointer",
               textAlign: "left",
               backgroundColor:
-                activeTab === "pengaduan" ? "#e1f2e5" : "transparent",
-              color: activeTab === "pengaduan" ? "#00a86b" : "#475569",
+                activeTab === "pengaduan" ? "#0d9488" : "transparent",
+              color: activeTab === "pengaduan" ? "#ffffff" : "#94a3b8",
+              boxShadow:
+                activeTab === "pengaduan"
+                  ? "0 4px 12px rgba(13,148,136,0.3)"
+                  : "none",
             }}
           >
             <MessageSquare size={18} /> Pengaduan Warga
@@ -594,14 +659,18 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               borderRadius: "10px",
               border: "none",
               fontWeight: 700,
-              fontSize: "0.875rem",
+              fontSize: "0.85rem",
               cursor: "pointer",
               textAlign: "left",
-              backgroundColor: activeTab === "cctv" ? "#e1f2e5" : "transparent",
-              color: activeTab === "cctv" ? "#00a86b" : "#475569",
+              backgroundColor: activeTab === "cctv" ? "#0d9488" : "transparent",
+              color: activeTab === "cctv" ? "#ffffff" : "#94a3b8",
+              boxShadow:
+                activeTab === "cctv"
+                  ? "0 4px 12px rgba(13,148,136,0.3)"
+                  : "none",
             }}
           >
-            <Video size={18} /> CCTV Live Monitoring
+            <Video size={18} /> CCTV Monitoring
           </button>
 
           <button
@@ -615,15 +684,19 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               borderRadius: "10px",
               border: "none",
               fontWeight: 700,
-              fontSize: "0.875rem",
+              fontSize: "0.85rem",
               cursor: "pointer",
               textAlign: "left",
               backgroundColor:
-                activeTab === "berita" ? "#e1f2e5" : "transparent",
-              color: activeTab === "berita" ? "#00a86b" : "#475569",
+                activeTab === "berita" ? "#0d9488" : "transparent",
+              color: activeTab === "berita" ? "#ffffff" : "#94a3b8",
+              boxShadow:
+                activeTab === "berita"
+                  ? "0 4px 12px rgba(13,148,136,0.3)"
+                  : "none",
             }}
           >
-            <Newspaper size={18} /> Berita Kecamatan
+            <Newspaper size={18} /> Berita & Mading
           </button>
 
           <button
@@ -637,16 +710,32 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               borderRadius: "10px",
               border: "none",
               fontWeight: 700,
-              fontSize: "0.875rem",
+              fontSize: "0.85rem",
               cursor: "pointer",
               textAlign: "left",
               backgroundColor:
-                activeTab === "aparat" ? "#e1f2e5" : "transparent",
-              color: activeTab === "aparat" ? "#00a86b" : "#475569",
+                activeTab === "aparat" ? "#0d9488" : "transparent",
+              color: activeTab === "aparat" ? "#ffffff" : "#94a3b8",
+              boxShadow:
+                activeTab === "aparat"
+                  ? "0 4px 12px rgba(13,148,136,0.3)"
+                  : "none",
             }}
           >
             <Shield size={18} /> Pejabat Kecamatan
           </button>
+
+          <div
+            style={{
+              fontSize: "0.7rem",
+              fontWeight: 800,
+              color: "#475569",
+              padding: "16px 12px 4px 12px",
+              letterSpacing: "0.8px",
+            }}
+          >
+            SISTEM
+          </div>
 
           <button
             type="button"
@@ -659,22 +748,26 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               borderRadius: "10px",
               border: "none",
               fontWeight: 700,
-              fontSize: "0.875rem",
+              fontSize: "0.85rem",
               cursor: "pointer",
               textAlign: "left",
               backgroundColor:
-                activeTab === "pengaturan" ? "#e1f2e5" : "transparent",
-              color: activeTab === "pengaturan" ? "#00a86b" : "#475569",
+                activeTab === "pengaturan" ? "#0d9488" : "transparent",
+              color: activeTab === "pengaturan" ? "#ffffff" : "#94a3b8",
+              boxShadow:
+                activeTab === "pengaturan"
+                  ? "0 4px 12px rgba(13,148,136,0.3)"
+                  : "none",
             }}
           >
-            <Settings size={18} /> Pengaturan System
+            <Settings size={18} /> Pengaturan Kredensial
           </button>
         </nav>
 
         <div
           style={{
-            padding: "1rem 1.25rem",
-            borderTop: "1px solid #f1f5f9",
+            padding: "1.25rem",
+            borderTop: "1px solid #1e293b",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -682,7 +775,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
         >
           <div>
             <div
-              style={{ fontSize: "0.85rem", fontWeight: 800, color: "#0f172a" }}
+              style={{ fontSize: "0.85rem", fontWeight: 800, color: "#ffffff" }}
             >
               Admin Batununggal
             </div>
@@ -693,14 +786,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({
           <button
             type="button"
             onClick={() => setIsLoggedIn(false)}
-            title="Logout"
+            title="Keluar Session"
             style={{
-              background: "#fef2f2",
-              color: "#ef4444",
-              border: "1px solid #fecaca",
-              width: "34px",
-              height: "34px",
-              borderRadius: "8px",
+              background: "#334155",
+              color: "#f8fafc",
+              border: "none",
+              width: "36px",
+              height: "36px",
+              borderRadius: "10px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -721,11 +814,12 @@ export const AdminPage: React.FC<AdminPageProps> = ({
           overflowX: "hidden",
         }}
       >
+        {/* EXECUTIVE HEADER */}
         <header
           style={{
             backgroundColor: "#ffffff",
             borderBottom: "1px solid #e2e8f0",
-            padding: "1rem 2rem",
+            padding: "1.1rem 2.2rem",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -734,322 +828,186 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             zIndex: 40,
           }}
         >
-          <div>
-            <h2
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div
               style={{
-                fontSize: "1.15rem",
+                backgroundColor: "#ccfbf1",
+                color: "#0d9488",
+                padding: "8px 14px",
+                borderRadius: "20px",
+                fontSize: "0.8rem",
                 fontWeight: 800,
-                margin: 0,
-                color: "#0f172a",
               }}
             >
-              Sistem Informasi & Transparansi Kecamatan Batununggal
-            </h2>
-            <p
-              style={{
-                fontSize: "0.775rem",
-                margin: "2px 0 0 0",
-                color: "#64748b",
-              }}
+              Kecamatan Batununggal
+            </div>
+            <span style={{ color: "#cbd5e1" }}>|</span>
+            <span
+              style={{ fontSize: "0.85rem", color: "#64748b", fontWeight: 600 }}
             >
-              Cakupan 8 Kelurahan Wilayah Kota Bandung
-            </p>
+              Cakupan 8 Kelurahan Wilayah Bandung
+            </span>
           </div>
 
           <button
             type="button"
             onClick={onBackToPublic}
             style={{
-              backgroundColor: "#ffffff",
-              color: "#00a86b",
-              border: "1px solid #00a86b",
-              padding: "8px 16px",
-              borderRadius: "8px",
+              backgroundColor: "#0f172a",
+              color: "#ffffff",
+              border: "none",
+              padding: "9px 18px",
+              borderRadius: "10px",
               fontWeight: 700,
               fontSize: "0.85rem",
               cursor: "pointer",
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
+              boxShadow: "0 4px 10px rgba(15,23,42,0.15)",
             }}
           >
-            <Eye size={16} /> Lihat Portal Publik
+            <Eye size={16} /> Lihat Web Publik
           </button>
         </header>
 
-        <main style={{ padding: "2rem", flexGrow: 1 }}>
-          {/* TAB 1: DASHBOARD UTAMA */}
+        <main style={{ padding: "2.2rem", flexGrow: 1 }}>
+          {/* TAB 1: EXECUTIVE DASHBOARD */}
           {activeTab === "dashboard" && (
             <div>
+              {/* HERO BANNER EXECUTIVE */}
               <div
                 style={{
+                  background:
+                    "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+                  color: "#ffffff",
+                  borderRadius: "20px",
+                  padding: "2rem 2.5rem",
+                  marginBottom: "2rem",
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  marginBottom: "1.5rem",
+                  alignItems: "center",
+                  boxShadow: "0 10px 25px -5px rgba(15,23,42,0.2)",
                 }}
               >
                 <div>
+                  <span
+                    style={{
+                      backgroundColor: "rgba(13,148,136,0.2)",
+                      color: "#2dd4bf",
+                      padding: "4px 12px",
+                      borderRadius: "15px",
+                      fontSize: "0.75rem",
+                      fontWeight: 800,
+                      border: "1px solid rgba(13,148,136,0.4)",
+                    }}
+                  >
+                    DASBOR KONTROL UTAMA
+                  </span>
                   <h2
                     style={{
-                      margin: "0 0 4px 0",
-                      fontSize: "1.6rem",
-                      fontWeight: 800,
-                      color: "#0f172a",
+                      fontSize: "1.8rem",
+                      fontWeight: 900,
+                      margin: "8px 0 6px 0",
+                      letterSpacing: "-0.5px",
                     }}
                   >
-                    Dashboard Utama Kecamatan
+                    Sistem Informasi Batununggal
                   </h2>
                   <p
-                    style={{
-                      margin: 0,
-                      color: "#64748b",
-                      fontSize: "0.875rem",
-                    }}
+                    style={{ margin: 0, color: "#94a3b8", fontSize: "0.9rem" }}
                   >
-                    Ringkasan data terpadu & statistik kependudukan Kecamatan
-                    Batununggal.
+                    Monitoring terpadu pelayanan publik, data kependudukan, dan
+                    pengaduan warga secara real-time.
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() =>
-                    showToast(
-                      "Data rekapitulasi Kecamatan Batununggal berhasil di-export!",
-                    )
+                    showToast("Laporan Rekapitulasi Kecamatan di-export!")
                   }
                   style={{
-                    backgroundColor: "#2563eb",
+                    backgroundColor: "#0d9488",
                     color: "#ffffff",
                     border: "none",
-                    padding: "10px 18px",
-                    borderRadius: "8px",
+                    padding: "12px 20px",
+                    borderRadius: "12px",
                     fontWeight: 700,
                     fontSize: "0.85rem",
                     cursor: "pointer",
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "8px",
+                    boxShadow: "0 8px 16px rgba(13,148,136,0.3)",
                   }}
                 >
-                  <Download size={16} /> Export Data Kecamatan
+                  <Download size={16} /> Export Rekapitulasi Data
                 </button>
               </div>
 
-              {/* Mini Summary Cards */}
+              {/* 4 DISTINCT METRIC CARDS */}
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))",
                   gap: "1.25rem",
-                  marginBottom: "1.5rem",
+                  marginBottom: "2rem",
                 }}
               >
                 <div
                   style={{
                     backgroundColor: "#ffffff",
                     border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    padding: "1.25rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
+                    borderRadius: "16px",
+                    padding: "1.5rem",
+                    borderTop: "4px solid #0d9488",
                   }}
                 >
                   <div
                     style={{
-                      backgroundColor: "#e1f2e5",
-                      color: "#00a86b",
-                      padding: "12px",
-                      borderRadius: "10px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    <Store size={22} />
-                  </div>
-                  <div>
-                    <div
+                    <span
                       style={{
-                        fontSize: "0.775rem",
+                        fontSize: "0.75rem",
                         color: "#64748b",
-                        fontWeight: 700,
-                      }}
-                    >
-                      UMKM Terdata
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "1.4rem",
                         fontWeight: 800,
-                        color: "#0f172a",
                       }}
                     >
-                      {umkmList.length}{" "}
-                      <span
-                        style={{
-                          fontSize: "0.8rem",
-                          fontWeight: 500,
-                          color: "#64748b",
-                        }}
-                      >
-                        Usaha
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    padding: "1.25rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: "#fef3c7",
-                      color: "#b45309",
-                      padding: "12px",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <MessageSquare size={22} />
-                  </div>
-                  <div>
+                      POPULASI PENDUDUK
+                    </span>
                     <div
                       style={{
-                        fontSize: "0.775rem",
-                        color: "#64748b",
-                        fontWeight: 700,
+                        backgroundColor: "#ccfbf1",
+                        color: "#0d9488",
+                        padding: "8px",
+                        borderRadius: "10px",
                       }}
                     >
-                      Laporan Warga
+                      <Users size={18} />
                     </div>
-                    <div
-                      style={{
-                        fontSize: "1.4rem",
-                        fontWeight: 800,
-                        color: "#0f172a",
-                      }}
-                    >
-                      {pengaduanList.length}{" "}
-                      <span
-                        style={{
-                          fontSize: "0.8rem",
-                          fontWeight: 500,
-                          color: "#64748b",
-                        }}
-                      >
-                        Laporan
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    padding: "1.25rem",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: "#dbeafe",
-                      color: "#2563eb",
-                      padding: "12px",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <Video size={22} />
-                  </div>
-                  <div>
-                    <div
-                      style={{
-                        fontSize: "0.775rem",
-                        color: "#64748b",
-                        fontWeight: 700,
-                      }}
-                    >
-                      CCTV Stream Active
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "1.4rem",
-                        fontWeight: 800,
-                        color: "#0f172a",
-                      }}
-                    >
-                      {cctvList.length}{" "}
-                      <span
-                        style={{
-                          fontSize: "0.8rem",
-                          fontWeight: 500,
-                          color: "#64748b",
-                        }}
-                      >
-                        Titik Live
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Demografi Grid Cards */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                  gap: "1.25rem",
-                  marginBottom: "1.5rem",
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    padding: "1.25rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "0.75rem",
-                      color: "#64748b",
-                      fontWeight: 700,
-                    }}
-                  >
-                    Total Penduduk Kecamatan
                   </div>
                   <div
                     style={{
                       fontSize: "1.8rem",
-                      fontWeight: 800,
+                      fontWeight: 900,
                       color: "#0f172a",
-                      margin: "4px 0",
+                      margin: "8px 0 2px 0",
                     }}
                   >
-                    {kecamatanStats.totalPopulasi.toLocaleString("id-ID")}{" "}
-                    <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>
-                      Jiwa
-                    </span>
+                    {kecamatanStats.totalPopulasi.toLocaleString("id-ID")}
                   </div>
                   <div
                     style={{
                       fontSize: "0.75rem",
-                      color: "#00a86b",
+                      color: "#0d9488",
                       fontWeight: 700,
                     }}
                   >
                     Tersebar di {kecamatanStats.jumlahKelurahan} Kelurahan
-                    Wilayah
                   </div>
                 </div>
 
@@ -1057,108 +1015,50 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   style={{
                     backgroundColor: "#ffffff",
                     border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    padding: "1.25rem",
+                    borderRadius: "16px",
+                    padding: "1.5rem",
+                    borderTop: "4px solid #4f46e5",
                   }}
                 >
                   <div
                     style={{
-                      fontSize: "0.75rem",
-                      color: "#64748b",
-                      fontWeight: 700,
-                    }}
-                  >
-                    Distribusi Kelompok Usia
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "0.75rem",
-                      fontWeight: 700,
-                      color: "#1e293b",
-                      margin: "8px 0 6px 0",
                       display: "flex",
                       justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    <span style={{ color: "#00a86b" }}>
-                      ● Prod: {pctProduktif}%
+                    <span
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "#64748b",
+                        fontWeight: 800,
+                      }}
+                    >
+                      KEPALA KELUARGA (KK)
                     </span>
-                    <span style={{ color: "#2563eb" }}>● Anak: {pctAnak}%</span>
-                    <span style={{ color: "#f59e0b" }}>
-                      ● Lansia: {pctLansia}%
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      height: "8px",
-                      backgroundColor: "#e2e8f0",
-                      borderRadius: "4px",
-                      overflow: "hidden",
-                      display: "flex",
-                    }}
-                  >
                     <div
                       style={{
-                        width: `${pctProduktif}%`,
-                        backgroundColor: "#00a86b",
+                        backgroundColor: "#e0e7ff",
+                        color: "#4f46e5",
+                        padding: "8px",
+                        borderRadius: "10px",
                       }}
-                    />
-                    <div
-                      style={{
-                        width: `${pctAnak}%`,
-                        backgroundColor: "#2563eb",
-                      }}
-                    />
-                    <div
-                      style={{
-                        width: `${pctLansia}%`,
-                        backgroundColor: "#f59e0b",
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "0.725rem",
-                      color: "#64748b",
-                      marginTop: "6px",
-                    }}
-                  >
-                    Produktif (18-59) | Anak (0-17) | Lansia (60+)
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    padding: "1.25rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "0.75rem",
-                      color: "#64748b",
-                      fontWeight: 700,
-                    }}
-                  >
-                    Kepala Keluarga (KK)
+                    >
+                      <Building2 size={18} />
+                    </div>
                   </div>
                   <div
                     style={{
                       fontSize: "1.8rem",
-                      fontWeight: 800,
+                      fontWeight: 900,
                       color: "#0f172a",
-                      margin: "4px 0",
+                      margin: "8px 0 2px 0",
                     }}
                   >
-                    {kecamatanStats.totalKK.toLocaleString("id-ID")}{" "}
-                    <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>
-                      KK
-                    </span>
+                    {kecamatanStats.totalKK.toLocaleString("id-ID")}
                   </div>
                   <div style={{ fontSize: "0.75rem", color: "#64748b" }}>
-                    Pelayanan Digital Aktif
+                    Kartu Keluarga Terdata
                   </div>
                 </div>
 
@@ -1166,120 +1066,447 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   style={{
                     backgroundColor: "#ffffff",
                     border: "1px solid #e2e8f0",
-                    borderRadius: "12px",
-                    padding: "1.25rem",
+                    borderRadius: "16px",
+                    padding: "1.5rem",
+                    borderTop: "4px solid #f59e0b",
                   }}
                 >
                   <div
                     style={{
-                      fontSize: "0.75rem",
-                      color: "#64748b",
-                      fontWeight: 700,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    Pertumbuhan Pertahun
+                    <span
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "#64748b",
+                        fontWeight: 800,
+                      }}
+                    >
+                      KATALOG UMKM
+                    </span>
+                    <div
+                      style={{
+                        backgroundColor: "#fef3c7",
+                        color: "#b45309",
+                        padding: "8px",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      <Store size={18} />
+                    </div>
                   </div>
                   <div
                     style={{
                       fontSize: "1.8rem",
-                      fontWeight: 800,
-                      color: "#00a86b",
-                      margin: "4px 0",
+                      fontWeight: 900,
+                      color: "#0f172a",
+                      margin: "8px 0 2px 0",
                     }}
                   >
-                    +1.8%
+                    {umkmList.length}{" "}
+                    <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>
+                      Usaha
+                    </span>
                   </div>
-                  <div style={{ fontSize: "0.75rem", color: "#64748b" }}>
-                    Stabilitas Wilayah Batununggal
+                  <div
+                    style={{
+                      fontSize: "0.75rem",
+                      color: "#b45309",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Aktif Promosi Digital
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "16px",
+                    padding: "1.5rem",
+                    borderTop: "4px solid #ef4444",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "#64748b",
+                        fontWeight: 800,
+                      }}
+                    >
+                      LAPORAN WARGA
+                    </span>
+                    <div
+                      style={{
+                        backgroundColor: "#fee2e2",
+                        color: "#dc2626",
+                        padding: "8px",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      <MessageSquare size={18} />
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "1.8rem",
+                      fontWeight: 900,
+                      color: "#0f172a",
+                      margin: "8px 0 2px 0",
+                    }}
+                  >
+                    {pengaduanList.length}{" "}
+                    <span style={{ fontSize: "0.9rem", fontWeight: 600 }}>
+                      Pengaduan
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "0.75rem",
+                      color: "#dc2626",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Layanan Respon Online
                   </div>
                 </div>
               </div>
 
-              {/* Big Charts Grid */}
+              {/* CHARTS GRID SECTION */}
               <div
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))",
                   gap: "1.5rem",
+                  marginBottom: "2rem",
                 }}
               >
+                {/* GRADIENT AREA CHART (DIFFERENT FROM ANTAPANI) */}
                 <div
                   style={{
                     backgroundColor: "#ffffff",
                     border: "1px solid #e2e8f0",
-                    borderRadius: "16px",
-                    padding: "1.5rem",
+                    borderRadius: "20px",
+                    padding: "1.75rem",
                   }}
                 >
-                  <h3
+                  <div
                     style={{
-                      margin: "0 0 1rem 0",
-                      fontSize: "1rem",
-                      fontWeight: 800,
-                      color: "#0f172a",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "1rem",
                     }}
                   >
-                    Tren Pertumbuhan Penduduk Kecamatan
-                  </h3>
+                    <div>
+                      <h3
+                        style={{
+                          margin: 0,
+                          fontSize: "1.05rem",
+                          fontWeight: 800,
+                          color: "#0f172a",
+                        }}
+                      >
+                        Laju Pertumbuhan Penduduk
+                      </h3>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: "0.775rem",
+                          color: "#64748b",
+                        }}
+                      >
+                        Kecamatan Batununggal (Area Gradient)
+                      </p>
+                    </div>
+                    <span
+                      style={{
+                        backgroundColor: "#ccfbf1",
+                        color: "#0d9488",
+                        fontSize: "0.75rem",
+                        fontWeight: 800,
+                        padding: "4px 10px",
+                        borderRadius: "12px",
+                      }}
+                    >
+                      +1.8% / Thn
+                    </span>
+                  </div>
                   <div style={{ width: "100%", height: "260px" }}>
                     <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={CHART_PERTUMBUHAN}>
+                      <AreaChart data={CHART_PERTUMBUHAN}>
+                        <defs>
+                          <linearGradient
+                            id="colorTotal"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                          >
+                            <stop
+                              offset="5%"
+                              stopColor="#0d9488"
+                              stopOpacity={0.4}
+                            />
+                            <stop
+                              offset="95%"
+                              stopColor="#0d9488"
+                              stopOpacity={0}
+                            />
+                          </linearGradient>
+                        </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                        <XAxis dataKey="tahun" stroke="#64748b" />
-                        <YAxis stroke="#64748b" />
+                        <XAxis dataKey="tahun" stroke="#64748b" fontSize={12} />
+                        <YAxis stroke="#64748b" fontSize={12} />
                         <Tooltip />
-                        <Line
+                        <Area
                           type="monotone"
                           dataKey="total"
-                          stroke="#00a86b"
+                          stroke="#0d9488"
                           strokeWidth={3}
-                          dot={{ r: 5 }}
+                          fillOpacity={1}
+                          fill="url(#colorTotal)"
                         />
-                      </LineChart>
+                      </AreaChart>
                     </ResponsiveContainer>
                   </div>
                 </div>
 
+                {/* DUAL COLOR BAR CHART */}
                 <div
                   style={{
                     backgroundColor: "#ffffff",
                     border: "1px solid #e2e8f0",
-                    borderRadius: "16px",
-                    padding: "1.5rem",
+                    borderRadius: "20px",
+                    padding: "1.75rem",
                   }}
                 >
-                  <h3
+                  <div
                     style={{
-                      margin: "0 0 1rem 0",
-                      fontSize: "1rem",
-                      fontWeight: 800,
-                      color: "#0f172a",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "1rem",
                     }}
                   >
-                    Kelahiran vs Kematian (Skala Kecamatan)
-                  </h3>
+                    <div>
+                      <h3
+                        style={{
+                          margin: 0,
+                          fontSize: "1.05rem",
+                          fontWeight: 800,
+                          color: "#0f172a",
+                        }}
+                      >
+                        Kelahiran vs Kematian
+                      </h3>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: "0.775rem",
+                          color: "#64748b",
+                        }}
+                      >
+                        Data Statistik Tahunan Wilayah
+                      </p>
+                    </div>
+                  </div>
                   <div style={{ width: "100%", height: "260px" }}>
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={CHART_KELAHIRAN_KEMATIAN}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                        <XAxis dataKey="tahun" stroke="#64748b" />
-                        <YAxis stroke="#64748b" />
+                        <XAxis dataKey="tahun" stroke="#64748b" fontSize={12} />
+                        <YAxis stroke="#64748b" fontSize={12} />
                         <Tooltip />
                         <Legend />
                         <Bar
                           dataKey="kelahiran"
-                          fill="#00a86b"
+                          fill="#4f46e5"
                           name="Kelahiran"
-                          radius={[4, 4, 0, 0]}
+                          radius={[6, 6, 0, 0]}
                         />
                         <Bar
                           dataKey="kematian"
-                          fill="#ef4444"
+                          fill="#f59e0b"
                           name="Kematian"
-                          radius={[4, 4, 0, 0]}
+                          radius={[6, 6, 0, 0]}
                         />
                       </BarChart>
                     </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+
+              {/* DEMOGRAFI AGE BREAKDOWN CARD */}
+              <div
+                style={{
+                  backgroundColor: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "20px",
+                  padding: "1.75rem",
+                }}
+              >
+                <h3
+                  style={{
+                    margin: "0 0 1.25rem 0",
+                    fontSize: "1.05rem",
+                    fontWeight: 800,
+                    color: "#0f172a",
+                  }}
+                >
+                  Rincian Demografi Usia Warga Batununggal
+                </h3>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: "1.5rem",
+                  }}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#f8fafc",
+                      padding: "1.25rem",
+                      borderRadius: "14px",
+                      border: "1px solid #e2e8f0",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        fontWeight: 800,
+                        fontSize: "0.9rem",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <span style={{ color: "#0d9488" }}>
+                        Usia Produktif (18 - 59 Thn)
+                      </span>
+                      <span>{pctProduktif}%</span>
+                    </div>
+                    <div
+                      style={{
+                        height: "8px",
+                        backgroundColor: "#e2e8f0",
+                        borderRadius: "4px",
+                        overflow: "hidden",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${pctProduktif}%`,
+                          backgroundColor: "#0d9488",
+                          height: "100%",
+                        }}
+                      />
+                    </div>
+                    <div style={{ fontSize: "0.8rem", color: "#64748b" }}>
+                      {kecamatanStats.usiaProduktif.toLocaleString("id-ID")}{" "}
+                      Jiwa terdata
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      backgroundColor: "#f8fafc",
+                      padding: "1.25rem",
+                      borderRadius: "14px",
+                      border: "1px solid #e2e8f0",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        fontWeight: 800,
+                        fontSize: "0.9rem",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <span style={{ color: "#4f46e5" }}>
+                        Anak & Remaja (0 - 17 Thn)
+                      </span>
+                      <span>{pctAnak}%</span>
+                    </div>
+                    <div
+                      style={{
+                        height: "8px",
+                        backgroundColor: "#e2e8f0",
+                        borderRadius: "4px",
+                        overflow: "hidden",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${pctAnak}%`,
+                          backgroundColor: "#4f46e5",
+                          height: "100%",
+                        }}
+                      />
+                    </div>
+                    <div style={{ fontSize: "0.8rem", color: "#64748b" }}>
+                      {kecamatanStats.anakRemaja.toLocaleString("id-ID")} Jiwa
+                      terdata
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      backgroundColor: "#f8fafc",
+                      padding: "1.25rem",
+                      borderRadius: "14px",
+                      border: "1px solid #e2e8f0",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        fontWeight: 800,
+                        fontSize: "0.9rem",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <span style={{ color: "#f59e0b" }}>
+                        Lanjut Usia (60+ Thn)
+                      </span>
+                      <span>{pctLansia}%</span>
+                    </div>
+                    <div
+                      style={{
+                        height: "8px",
+                        backgroundColor: "#e2e8f0",
+                        borderRadius: "4px",
+                        overflow: "hidden",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${pctLansia}%`,
+                          backgroundColor: "#f59e0b",
+                          height: "100%",
+                        }}
+                      />
+                    </div>
+                    <div style={{ fontSize: "0.8rem", color: "#64748b" }}>
+                      {kecamatanStats.lansia.toLocaleString("id-ID")} Jiwa
+                      terdata
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1292,8 +1519,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               style={{
                 backgroundColor: "#ffffff",
                 border: "1px solid #e2e8f0",
-                borderRadius: "16px",
-                padding: "1.75rem",
+                borderRadius: "20px",
+                padding: "2rem",
                 maxWidth: "600px",
               }}
             >
@@ -1304,7 +1531,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   fontWeight: 800,
                 }}
               >
-                Ubah Data Kependudukan Kecamatan
+                Update Data Kependudukan Kecamatan
               </h3>
               <p
                 style={{
@@ -1313,22 +1540,19 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   fontSize: "0.85rem",
                 }}
               >
-                Memperbarui statistik demografi publik untuk Kecamatan
-                Batununggal.
+                Pengaturan angka statistik demografi publik Batununggal.
               </p>
 
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   onUpdateKecamatanStats(editStats);
-                  showToast(
-                    "Data kependudukan Kecamatan Batununggal berhasil diperbarui!",
-                  );
+                  showToast("Data kependudukan berhasil disimpan!");
                 }}
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "1rem",
+                  gap: "1.2rem",
                 }}
               >
                 <div>
@@ -1337,10 +1561,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       fontSize: "0.85rem",
                       fontWeight: 700,
                       display: "block",
-                      marginBottom: "4px",
+                      marginBottom: "6px",
                     }}
                   >
-                    Total Penduduk (Jiwa)
+                    Total Populas Warga (Jiwa)
                   </label>
                   <input
                     type="number"
@@ -1353,9 +1577,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     style={{
                       width: "100%",
-                      padding: "10px",
-                      borderRadius: "8px",
+                      padding: "11px",
+                      borderRadius: "10px",
                       border: "1px solid #cbd5e1",
+                      fontSize: "0.9rem",
                     }}
                   />
                 </div>
@@ -1373,7 +1598,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         fontSize: "0.8rem",
                         fontWeight: 700,
                         display: "block",
-                        marginBottom: "4px",
+                        marginBottom: "6px",
                       }}
                     >
                       Usia Produktif
@@ -1389,9 +1614,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       }
                       style={{
                         width: "100%",
-                        padding: "10px",
-                        borderRadius: "8px",
+                        padding: "11px",
+                        borderRadius: "10px",
                         border: "1px solid #cbd5e1",
+                        fontSize: "0.9rem",
                       }}
                     />
                   </div>
@@ -1401,7 +1627,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         fontSize: "0.8rem",
                         fontWeight: 700,
                         display: "block",
-                        marginBottom: "4px",
+                        marginBottom: "6px",
                       }}
                     >
                       Anak & Remaja
@@ -1417,9 +1643,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       }
                       style={{
                         width: "100%",
-                        padding: "10px",
-                        borderRadius: "8px",
+                        padding: "11px",
+                        borderRadius: "10px",
                         border: "1px solid #cbd5e1",
+                        fontSize: "0.9rem",
                       }}
                     />
                   </div>
@@ -1429,7 +1656,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         fontSize: "0.8rem",
                         fontWeight: 700,
                         display: "block",
-                        marginBottom: "4px",
+                        marginBottom: "6px",
                       }}
                     >
                       Lanjut Usia
@@ -1445,9 +1672,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       }
                       style={{
                         width: "100%",
-                        padding: "10px",
-                        borderRadius: "8px",
+                        padding: "11px",
+                        borderRadius: "10px",
                         border: "1px solid #cbd5e1",
+                        fontSize: "0.9rem",
                       }}
                     />
                   </div>
@@ -1466,7 +1694,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         fontSize: "0.85rem",
                         fontWeight: 700,
                         display: "block",
-                        marginBottom: "4px",
+                        marginBottom: "6px",
                       }}
                     >
                       Total Kepala Keluarga (KK)
@@ -1482,9 +1710,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       }
                       style={{
                         width: "100%",
-                        padding: "10px",
-                        borderRadius: "8px",
+                        padding: "11px",
+                        borderRadius: "10px",
                         border: "1px solid #cbd5e1",
+                        fontSize: "0.9rem",
                       }}
                     />
                   </div>
@@ -1494,7 +1723,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         fontSize: "0.85rem",
                         fontWeight: 700,
                         display: "block",
-                        marginBottom: "4px",
+                        marginBottom: "6px",
                       }}
                     >
                       Jumlah Kelurahan
@@ -1510,9 +1739,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       }
                       style={{
                         width: "100%",
-                        padding: "10px",
-                        borderRadius: "8px",
+                        padding: "11px",
+                        borderRadius: "10px",
                         border: "1px solid #cbd5e1",
+                        fontSize: "0.9rem",
                       }}
                     />
                   </div>
@@ -1521,11 +1751,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 <button
                   type="submit"
                   style={{
-                    backgroundColor: "#00a86b",
+                    backgroundColor: "#0d9488",
                     color: "#fff",
                     border: "none",
                     padding: "12px",
-                    borderRadius: "8px",
+                    borderRadius: "10px",
                     fontWeight: 700,
                     cursor: "pointer",
                     marginTop: "0.5rem",
@@ -1544,8 +1774,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 style={{
                   backgroundColor: "#ffffff",
                   border: "1px solid #e2e8f0",
-                  borderRadius: "16px",
-                  padding: "1.5rem",
+                  borderRadius: "20px",
+                  padding: "1.75rem",
                   marginBottom: "2rem",
                 }}
               >
@@ -1556,13 +1786,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     fontWeight: 800,
                   }}
                 >
-                  ➕ Tambah Produk UMKM Kecamatan
+                  ➕ Tambah Produk UMKM Baru
                 </h3>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     onAddUmkm(newUmkm);
-                    showToast("Produk UMKM Kecamatan berhasil diterbitkan!");
+                    showToast("Produk UMKM berhasil diterbitkan!");
                     setNewUmkm({
                       nama: "",
                       kategori: "Kuliner",
@@ -1586,7 +1816,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -1597,14 +1827,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       setNewUmkm({ ...newUmkm, kategori: e.target.value })
                     }
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
                   >
                     <option value="Kuliner">Kuliner</option>
                     <option value="Kerajinan">Kerajinan</option>
-                    <option value="Jasa">Jasa & Fashion</option>
+                    <option value="Fashion">Fashion & Tekstil</option>
                   </select>
                   <input
                     type="text"
@@ -1615,7 +1845,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -1629,7 +1859,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -1644,7 +1874,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     required
                     style={{
                       gridColumn: "1 / -1",
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -1653,10 +1883,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     type="submit"
                     style={{
                       gridColumn: "1 / -1",
-                      backgroundColor: "#00a86b",
+                      backgroundColor: "#0d9488",
                       color: "#fff",
                       border: "none",
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       fontWeight: 700,
                       cursor: "pointer",
@@ -1684,7 +1914,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     style={{
                       backgroundColor: "#ffffff",
                       border: "1px solid #e2e8f0",
-                      borderRadius: "12px",
+                      borderRadius: "16px",
                       overflow: "hidden",
                     }}
                   >
@@ -1693,20 +1923,20 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       alt={item.nama}
                       style={{
                         width: "100%",
-                        height: "140px",
+                        height: "150px",
                         objectFit: "cover",
                       }}
                     />
-                    <div style={{ padding: "1rem" }}>
-                      <div
+                    <div style={{ padding: "1.25rem" }}>
+                      <span
                         style={{
                           fontSize: "0.75rem",
-                          color: "#00a86b",
+                          color: "#0d9488",
                           fontWeight: 800,
                         }}
                       >
                         {item.kategori}
-                      </div>
+                      </span>
                       <h4
                         style={{
                           margin: "2px 0 4px 0",
@@ -1720,7 +1950,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         style={{
                           fontSize: "0.85rem",
                           fontWeight: 700,
-                          color: "#2563eb",
+                          color: "#4f46e5",
+                          marginBottom: "8px",
                         }}
                       >
                         {item.harga}
@@ -1729,7 +1960,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         style={{
                           fontSize: "0.8rem",
                           color: "#64748b",
-                          margin: "6px 0 12px 0",
+                          margin: "0 0 1rem 0",
                         }}
                       >
                         {item.desc}
@@ -1745,7 +1976,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                           color: "#ef4444",
                           border: "1px solid #fecaca",
                           padding: "6px 12px",
-                          borderRadius: "6px",
+                          borderRadius: "8px",
                           fontSize: "0.75rem",
                           fontWeight: 700,
                           cursor: "pointer",
@@ -1769,8 +2000,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               style={{
                 backgroundColor: "#ffffff",
                 border: "1px solid #e2e8f0",
-                borderRadius: "16px",
-                padding: "1.5rem",
+                borderRadius: "20px",
+                padding: "1.75rem",
               }}
             >
               <h3
@@ -1780,7 +2011,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   fontWeight: 800,
                 }}
               >
-                Kelola Pengaduan Warga Kecamatan
+                Daftar Pengaduan Warga Masuk
               </h3>
               <div
                 style={{
@@ -1795,7 +2026,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     style={{
                       backgroundColor: "#f8fafc",
                       border: "1px solid #e2e8f0",
-                      borderRadius: "12px",
+                      borderRadius: "14px",
                       padding: "1.25rem",
                     }}
                   >
@@ -1814,7 +2045,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         style={{
                           fontSize: "0.75rem",
                           fontWeight: 800,
-                          padding: "4px 10px",
+                          padding: "4px 12px",
                           borderRadius: "20px",
                           backgroundColor:
                             item.status === "Selesai"
@@ -1859,7 +2090,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                           alignItems: "center",
                         }}
                       >
-                        <span>Ubah Status:</span>
+                        <span>Status:</span>
                         <select
                           value={item.status}
                           onChange={(e) => {
@@ -1868,11 +2099,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                               e.target.value as any,
                             );
                             showToast(
-                              `Status laporan diperbarui ke "${e.target.value}"`,
+                              `Status laporan diubah ke "${e.target.value}"`,
                             );
                           }}
                           style={{
-                            padding: "4px 8px",
+                            padding: "5px 10px",
                             borderRadius: "6px",
                             border: "1px solid #cbd5e1",
                           }}
@@ -1913,8 +2144,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 style={{
                   backgroundColor: "#ffffff",
                   border: "1px solid #e2e8f0",
-                  borderRadius: "16px",
-                  padding: "1.5rem",
+                  borderRadius: "20px",
+                  padding: "1.75rem",
                   marginBottom: "2rem",
                 }}
               >
@@ -1925,13 +2156,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     fontWeight: 800,
                   }}
                 >
-                  🎥 Tambah CCTV Live Stream
+                  🎥 Tambah CCTV Stream Live
                 </h3>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     onAddCctv(newCctv);
-                    showToast("CCTV Live Stream ditambahkan!");
+                    showToast("Kamera CCTV berhasil ditambahkan!");
                     setNewCctv({ name: "", loc: "", img: "" });
                   }}
                   style={{
@@ -1949,7 +2180,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -1963,7 +2194,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -1977,7 +2208,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -1985,10 +2216,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   <button
                     type="submit"
                     style={{
-                      backgroundColor: "#00a86b",
+                      backgroundColor: "#0d9488",
                       color: "#fff",
                       border: "none",
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       fontWeight: 700,
                       cursor: "pointer",
@@ -2012,8 +2243,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     style={{
                       backgroundColor: "#ffffff",
                       border: "1px solid #e2e8f0",
-                      borderRadius: "12px",
-                      padding: "1rem",
+                      borderRadius: "16px",
+                      padding: "1.25rem",
                     }}
                   >
                     <img
@@ -2023,8 +2254,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         width: "100%",
                         height: "140px",
                         objectFit: "cover",
-                        borderRadius: "8px",
-                        marginBottom: "8px",
+                        borderRadius: "10px",
+                        marginBottom: "10px",
                       }}
                     />
                     <h4
@@ -2056,7 +2287,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         color: "#ef4444",
                         border: "1px solid #fecaca",
                         padding: "6px 12px",
-                        borderRadius: "6px",
+                        borderRadius: "8px",
                         fontSize: "0.75rem",
                         fontWeight: 700,
                         cursor: "pointer",
@@ -2077,8 +2308,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 style={{
                   backgroundColor: "#ffffff",
                   border: "1px solid #e2e8f0",
-                  borderRadius: "16px",
-                  padding: "1.5rem",
+                  borderRadius: "20px",
+                  padding: "1.75rem",
                   marginBottom: "2rem",
                 }}
               >
@@ -2089,13 +2320,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     fontWeight: 800,
                   }}
                 >
-                  📰 Terbitkan Pengumuman Kecamatan
+                  📰 Terbitkan Berita Kecamatan
                 </h3>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     onAddBerita(newBerita);
-                    showToast("Pengumuman resmi berhasil diterbitkan!");
+                    showToast("Pengumuman resmi diterbitkan!");
                     setNewBerita({
                       judul: "",
                       kategori: "Pengumuman",
@@ -2112,14 +2343,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 >
                   <input
                     type="text"
-                    placeholder="Judul Berita / Pengumuman"
+                    placeholder="Judul Berita"
                     value={newBerita.judul}
                     onChange={(e) =>
                       setNewBerita({ ...newBerita, judul: e.target.value })
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -2133,7 +2364,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -2147,14 +2378,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
                   />
                   <textarea
                     rows={3}
-                    placeholder="Isi Berita Lengkap..."
+                    placeholder="Isi Berita..."
                     value={newBerita.desc}
                     onChange={(e) =>
                       setNewBerita({ ...newBerita, desc: e.target.value })
@@ -2162,7 +2393,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     required
                     style={{
                       gridColumn: "1 / -1",
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -2171,10 +2402,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     type="submit"
                     style={{
                       gridColumn: "1 / -1",
-                      backgroundColor: "#00a86b",
+                      backgroundColor: "#0d9488",
                       color: "#fff",
                       border: "none",
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       fontWeight: 700,
                       cursor: "pointer",
@@ -2198,8 +2429,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     style={{
                       backgroundColor: "#ffffff",
                       border: "1px solid #e2e8f0",
-                      borderRadius: "12px",
-                      padding: "1rem",
+                      borderRadius: "16px",
+                      padding: "1.25rem",
                     }}
                   >
                     <img
@@ -2209,8 +2440,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         width: "100%",
                         height: "140px",
                         objectFit: "cover",
-                        borderRadius: "8px",
-                        marginBottom: "8px",
+                        borderRadius: "10px",
+                        marginBottom: "10px",
                       }}
                     />
                     <h4
@@ -2226,7 +2457,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       style={{
                         fontSize: "0.75rem",
                         color: "#64748b",
-                        marginBottom: "8px",
+                        marginBottom: "10px",
                       }}
                     >
                       📅 {item.tanggal}
@@ -2242,7 +2473,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         color: "#ef4444",
                         border: "1px solid #fecaca",
                         padding: "6px 12px",
-                        borderRadius: "6px",
+                        borderRadius: "8px",
                         fontSize: "0.75rem",
                         fontWeight: 700,
                         cursor: "pointer",
@@ -2263,8 +2494,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 style={{
                   backgroundColor: "#ffffff",
                   border: "1px solid #e2e8f0",
-                  borderRadius: "16px",
-                  padding: "1.5rem",
+                  borderRadius: "20px",
+                  padding: "1.75rem",
                   marginBottom: "2rem",
                 }}
               >
@@ -2275,13 +2506,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     fontWeight: 800,
                   }}
                 >
-                  🛡️ Kelola Pejabat & Aparat Kecamatan
+                  🛡️ Pejabat & Aparat Kecamatan
                 </h3>
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     onAddAparat(newAparat);
-                    showToast("Pejabat baru berhasil ditambahkan!");
+                    showToast("Pejabat baru ditambahkan!");
                     setNewAparat({ nama: "", jabatan: "", kontak: "" });
                   }}
                   style={{
@@ -2292,42 +2523,42 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 >
                   <input
                     type="text"
-                    placeholder="Nama Lengkap & Gelar"
+                    placeholder="Nama & Gelar"
                     value={newAparat.nama}
                     onChange={(e) =>
                       setNewAparat({ ...newAparat, nama: e.target.value })
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
                   />
                   <input
                     type="text"
-                    placeholder="Jabatan (misal: Lurah Maleer)"
+                    placeholder="Jabatan"
                     value={newAparat.jabatan}
                     onChange={(e) =>
                       setNewAparat({ ...newAparat, jabatan: e.target.value })
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
                   />
                   <input
                     type="text"
-                    placeholder="No. Telp / WA Kantor"
+                    placeholder="No. Telp Kontak"
                     value={newAparat.kontak}
                     onChange={(e) =>
                       setNewAparat({ ...newAparat, kontak: e.target.value })
                     }
                     required
                     style={{
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       border: "1px solid #cbd5e1",
                     }}
@@ -2335,10 +2566,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   <button
                     type="submit"
                     style={{
-                      backgroundColor: "#00a86b",
+                      backgroundColor: "#0d9488",
                       color: "#fff",
                       border: "none",
-                      padding: "10px",
+                      padding: "11px",
                       borderRadius: "8px",
                       fontWeight: 700,
                       cursor: "pointer",
@@ -2362,7 +2593,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     style={{
                       backgroundColor: "#ffffff",
                       border: "1px solid #e2e8f0",
-                      borderRadius: "12px",
+                      borderRadius: "16px",
                       padding: "1.25rem",
                     }}
                   >
@@ -2379,7 +2610,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       style={{
                         margin: "0 0 8px 0",
                         fontSize: "0.85rem",
-                        color: "#00a86b",
+                        color: "#0d9488",
                         fontWeight: 700,
                       }}
                     >
@@ -2405,7 +2636,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                         color: "#ef4444",
                         border: "1px solid #fecaca",
                         padding: "6px 12px",
-                        borderRadius: "6px",
+                        borderRadius: "8px",
                         fontSize: "0.75rem",
                         fontWeight: 700,
                         cursor: "pointer",
@@ -2425,7 +2656,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               style={{
                 backgroundColor: "#ffffff",
                 border: "1px solid #e2e8f0",
-                borderRadius: "16px",
+                borderRadius: "20px",
                 padding: "2rem",
                 maxWidth: "500px",
               }}
@@ -2437,7 +2668,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   fontWeight: 800,
                 }}
               >
-                Pengaturan Kredensial Kecamatan
+                Pengaturan Akses Kredensial
               </h3>
               <p
                 style={{
@@ -2453,7 +2684,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 style={{
                   background: "#f8fafc",
                   padding: "1rem",
-                  borderRadius: "8px",
+                  borderRadius: "10px",
                   border: "1px solid #e2e8f0",
                   fontSize: "0.85rem",
                   color: "#334155",
@@ -2474,11 +2705,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   showToast("Konfigurasi sistem keamanan tersimpan!")
                 }
                 style={{
-                  backgroundColor: "#00a86b",
+                  backgroundColor: "#0d9488",
                   color: "#fff",
                   border: "none",
-                  padding: "10px 18px",
-                  borderRadius: "8px",
+                  padding: "11px 20px",
+                  borderRadius: "10px",
                   fontWeight: 700,
                   cursor: "pointer",
                 }}
