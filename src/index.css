@@ -4,5 +4,5 @@ html {
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 50px; /* Offset diperbesar agar aman dari navbar sticky */
+  scroll-padding-top: 40px; /* Offset diperbesar agar aman dari navbar sticky */
 }
