@@ -6,3 +6,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 120px; /* Dinaikin agar jarak aman ke bawah navbar lebih lega */
 }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
