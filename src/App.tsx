@@ -1,61 +1,48 @@
 import React, { useState, useEffect } from "react";
 import {
   Building2,
+  ShieldCheck,
+  Wifi,
+  FileText,
   Users,
-  Store,
-  Newspaper,
-  Video,
-  MessageSquare,
+  MapPin,
+  Lock,
   Send,
   CheckCircle2,
-  Phone,
-  X,
-  Lock,
-  Search,
-  MapPin,
-  ShieldCheck,
-  Eye,
-  ExternalLink,
+  Globe,
+  Server,
+  Zap,
+  BarChart3,
+  Compass,
+  Newspaper,
+  ShoppingBag,
+  ArrowRight,
 } from "lucide-react";
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Cell,
-  Tooltip,
-} from "recharts";
 import { AdminPage } from "./components/AdminPage";
 import type {
-  Pengaduan,
   UmkmItem,
   BeritaItem,
   CctvItem,
   AparatItem,
-  KecamatanStats,
 } from "./components/AdminPage";
 import "./App.css";
 
-// --- INITIAL FALLBACK DATA ---
-const INITIAL_PENGADUAN: Pengaduan[] = [
+const INITIAL_PENGADUAN: any[] = [
   {
     id: "1",
+    rt: "01",
     nama: "Deden Supriatna",
-    kelurahan: "Maleer",
     pesan:
-      "Pembersihan drainase di sekitar area Binong - Maleer perlu penanganan jelang musim hujan.",
-    tanggal: "30 Juli 2026",
+      "Permohonan perbaikan penerangan jalan umum di area RW 03 Batununggal.",
+    tanggal: "3 Agustus 2026",
     status: "Diproses",
   },
   {
     id: "2",
+    rt: "02",
     nama: "Ibu Nurhayati",
-    kelurahan: "Kebon Jayanti",
-    pesan:
-      "Jadwal sosialisasi Identitas Kependudukan Digital (IKD) di kantor kelurahan.",
-    tanggal: "28 Juli 2026",
+    pesan: "Pengurusan surat pengantar domisili usaha via portal mandiri.",
+    tanggal: "1 Agustus 2026",
     status: "Menunggu",
   },
 ];
@@ -63,106 +50,81 @@ const INITIAL_PENGADUAN: Pengaduan[] = [
 const INITIAL_UMKM: UmkmItem[] = [
   {
     id: 1,
-    nama: "Kerajinan Khas Batununggal",
+    nama: "Kerajinan Tangan Khas Batununggal",
     kategori: "Kerajinan",
-    harga: "Rp 85.000 / unit",
-    desc: "Produk kerajinan tangan kreatif dari pengrajin lokal Batununggal.",
+    harga: "Rp 50.000 / pcs",
+    desc: "Produk kerajinan tangan kreatif karya warga tempatan Kelurahan Batununggal.",
     image:
-      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=600",
+      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: 2,
-    nama: "Kuliner Khas Samoja",
+    nama: "Kuliner & Herbal Nusantara Batununggal",
     kategori: "Kuliner",
-    harga: "Rp 20.000 / porsi",
-    desc: "Olahan makanan tradisional dengan cita rasa khas priangan.",
+    harga: "Rp 25.000 / porsi",
+    desc: "Olahan makanan tradisional sehat dan minuman herbal produksi UMKM warga.",
     image:
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=600",
-  },
-  {
-    id: 3,
-    nama: "Fashion & Tekstil Binong",
-    kategori: "Fashion",
-    harga: "Rp 120.000 / pcs",
-    desc: "Produk rajut dan pakaian berkualitas buatan sentra usaha Binong.",
-    image:
-      "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&q=80&w=600",
+      "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
 const INITIAL_BERITA: BeritaItem[] = [
   {
     id: 1,
-    judul: "Sosialisasi Digitalisasi Pelayanan Publik Kecamatan",
+    judul: "Sosialisasi Digitalisasi Pelayanan Publik Kelurahan Batununggal",
     kategori: "Pengumuman",
-    tanggal: "29 Juli 2026",
-    desc: "Kecamatan Batununggal mempercepat pelayanan KTP, KK, dan perizinan berbasis digital untuk transparansi publik.",
+    tanggal: "2 Agustus 2026",
+    desc: "Kelurahan Batununggal mempercepat pelayanan KTP, KK, dan perizinan berbasis digital.",
     image:
-      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=600",
+      "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: 2,
-    judul: "Monitoring Kebersihan & Drainase Wilayah Maleer",
-    kategori: "Kegiatan",
-    tanggal: "25 Juli 2026",
-    desc: "Giat pemantauan lapangan oleh Camat Batununggal dan jajaran Lurah demi kenyamanan pemukiman.",
+    judul: "Pelatihan Literasi Digital & Pemasaran UMKM Warga",
+    kategori: "Edukasi",
+    tanggal: "28 Juli 2026",
+    desc: "Program pelatihan penggunaan teknologi digital demi peningkatan ekonomi warga Batununggal.",
     image:
-      "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=600",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
 const INITIAL_CCTV: CctvItem[] = [
   {
     id: 1,
-    name: "Kamera 01 - Simpang Kebon Jayanti",
-    loc: "Jl. Terusan Jakarta - Batununggal",
-    img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=600",
+    name: "Kamera 01 - Kantor Kelurahan Batununggal",
+    loc: "Jl. Batununggal Raya",
+    img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=800",
   },
   {
     id: 2,
-    name: "Kamera 02 - Area Kantor Kecamatan",
-    loc: "Jl. Batununggal No. 3",
-    img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=600",
+    name: "Kamera 02 - Simpang Utama Batununggal",
+    loc: "Sektor Batununggal Indah",
+    img: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=800",
   },
 ];
 
 const INITIAL_APARAT: AparatItem[] = [
   {
     id: 1,
-    nama: "Drs. Subarna, M.Si",
-    jabatan: "Camat Batununggal",
-    kontak: "022-7301234",
+    nama: "Lurah Batununggal",
+    jabatan: "Kepala Kelurahan",
+    kontak: "0812-3456-7890",
   },
   {
     id: 2,
-    nama: "Sekretaris Kecamatan",
-    jabatan: "Sekcam Batununggal",
-    kontak: "022-7301235",
-  },
-  {
-    id: 3,
-    nama: "Lurah Maleer",
-    jabatan: "Lurah Wilayah Maleer",
-    kontak: "022-7301236",
+    nama: "Sekretaris Kelurahan",
+    jabatan: "Pelayanan Administrasi",
+    kontak: "0813-9876-5432",
   },
 ];
-
-const INITIAL_KECAMATAN_STATS: KecamatanStats = {
-  totalPopulasi: 118400,
-  jumlahKelurahan: 8,
-  usiaProduktif: 78000,
-  anakRemaja: 28400,
-  lansia: 12000,
-  totalKK: 34500,
-};
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<"public" | "admin">("public");
 
-  // SAFE LOCAL STORAGE INITIALIZERS
-  const [pengaduanList, setPengaduanList] = useState<Pengaduan[]>(() => {
+  const [pengaduanList, setPengaduanList] = useState<any[]>(() => {
     try {
-      const saved = localStorage.getItem("btn_pengaduan");
+      const saved = localStorage.getItem("bt_pengaduan");
       const parsed = saved ? JSON.parse(saved) : null;
       return Array.isArray(parsed) && parsed.length > 0
         ? parsed
@@ -174,7 +136,7 @@ export default function App() {
 
   const [umkmList, setUmkmList] = useState<UmkmItem[]>(() => {
     try {
-      const saved = localStorage.getItem("btn_umkm");
+      const saved = localStorage.getItem("bt_umkm");
       const parsed = saved ? JSON.parse(saved) : null;
       return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_UMKM;
     } catch {
@@ -184,7 +146,7 @@ export default function App() {
 
   const [beritaList, setBeritaList] = useState<BeritaItem[]>(() => {
     try {
-      const saved = localStorage.getItem("btn_berita");
+      const saved = localStorage.getItem("bt_berita_v5");
       const parsed = saved ? JSON.parse(saved) : null;
       return Array.isArray(parsed) && parsed.length > 0
         ? parsed
@@ -196,7 +158,7 @@ export default function App() {
 
   const [cctvList, setCctvList] = useState<CctvItem[]>(() => {
     try {
-      const saved = localStorage.getItem("btn_cctv");
+      const saved = localStorage.getItem("bt_cctv");
       const parsed = saved ? JSON.parse(saved) : null;
       return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_CCTV;
     } catch {
@@ -206,7 +168,7 @@ export default function App() {
 
   const [aparatList, setAparatList] = useState<AparatItem[]>(() => {
     try {
-      const saved = localStorage.getItem("btn_aparat");
+      const saved = localStorage.getItem("bt_aparat");
       const parsed = saved ? JSON.parse(saved) : null;
       return Array.isArray(parsed) && parsed.length > 0
         ? parsed
@@ -216,41 +178,40 @@ export default function App() {
     }
   });
 
-  const [kecamatanStats, setKecamatanStats] = useState<KecamatanStats>(() => {
+  const [wargaStats, setWargaStats] = useState<any>(() => {
     try {
-      const saved = localStorage.getItem("btn_stats");
-      const parsed = saved ? JSON.parse(saved) : null;
-      return parsed && typeof parsed.totalPopulasi === "number"
-        ? parsed
-        : INITIAL_KECAMATAN_STATS;
+      const saved = localStorage.getItem("bt_wargastats");
+      return saved
+        ? JSON.parse(saved)
+        : {
+            totalWarga: 12500,
+            totalKK: 3400,
+            usiaProduktif: 8200,
+            lansia: 1100,
+          };
     } catch {
-      return INITIAL_KECAMATAN_STATS;
+      return {
+        totalWarga: 12500,
+        totalKK: 3400,
+        usiaProduktif: 8200,
+        lansia: 1100,
+      };
     }
   });
 
   useEffect(() => {
-    localStorage.setItem("btn_pengaduan", JSON.stringify(pengaduanList));
-    localStorage.setItem("btn_umkm", JSON.stringify(umkmList));
-    localStorage.setItem("btn_berita", JSON.stringify(beritaList));
-    localStorage.setItem("btn_cctv", JSON.stringify(cctvList));
-    localStorage.setItem("btn_aparat", JSON.stringify(aparatList));
-    localStorage.setItem("btn_stats", JSON.stringify(kecamatanStats));
-  }, [
-    pengaduanList,
-    umkmList,
-    beritaList,
-    cctvList,
-    aparatList,
-    kecamatanStats,
-  ]);
+    localStorage.setItem("bt_pengaduan", JSON.stringify(pengaduanList));
+    localStorage.setItem("bt_umkm", JSON.stringify(umkmList));
+    localStorage.setItem("bt_berita_v5", JSON.stringify(beritaList));
+    localStorage.setItem("bt_cctv", JSON.stringify(cctvList));
+    localStorage.setItem("bt_aparat", JSON.stringify(aparatList));
+    localStorage.setItem("bt_wargastats", JSON.stringify(wargaStats));
+  }, [pengaduanList, umkmList, beritaList, cctvList, aparatList, wargaStats]);
 
-  // Modal States
   const [selectedBerita, setSelectedBerita] = useState<BeritaItem | null>(null);
-  const [selectedCctv, setSelectedCctv] = useState<CctvItem | null>(null);
 
-  // Form Pengaduan Public State
   const [nama, setNama] = useState("");
-  const [kelurahan, setKelurahan] = useState("Maleer");
+  const [rt, setRt] = useState("01");
   const [pesan, setPesan] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -258,10 +219,10 @@ export default function App() {
     e.preventDefault();
     if (!nama || !pesan) return;
 
-    const newReport: Pengaduan = {
+    const newReport = {
       id: Date.now().toString(),
+      rt,
       nama,
-      kelurahan,
       pesan,
       tanggal: new Date().toLocaleDateString("id-ID", {
         day: "numeric",
@@ -280,82 +241,60 @@ export default function App() {
     }, 4000);
   };
 
-  // SWITCH KE HALAMAN ADMIN
   if (currentPage === "admin") {
+    const AdminComp = AdminPage as any;
     return (
-      <AdminPage
+      <AdminComp
         pengaduanList={pengaduanList}
-        onUpdatePengaduanStatus={(id, status) =>
-          setPengaduanList((prev) =>
-            prev.map((i) => (i.id === id ? { ...i, status } : i)),
+        onUpdatePengaduanStatus={(id: string, status: any) =>
+          setPengaduanList((prev: any) =>
+            prev.map((i: any) => (i.id === id ? { ...i, status } : i)),
           )
         }
-        onDeletePengaduan={(id) =>
-          setPengaduanList((prev) => prev.filter((i) => i.id !== id))
+        onDeletePengaduan={(id: string) =>
+          setPengaduanList((prev: any) => prev.filter((i: any) => i.id !== id))
         }
         umkmList={umkmList}
-        onAddUmkm={(item) =>
-          setUmkmList([{ ...item, id: Date.now() }, ...umkmList])
+        onAddUmkm={(item: any) =>
+          setUmkmList((prev: any) => [{ ...item, id: Date.now() }, ...prev])
         }
-        onDeleteUmkm={(id) =>
-          setUmkmList((prev) => prev.filter((i) => i.id !== id))
+        onDeleteUmkm={(id: string | number) =>
+          setUmkmList((prev: any) => prev.filter((i: any) => i.id !== id))
         }
         beritaList={beritaList}
-        onAddBerita={(item) =>
-          setBeritaList([{ ...item, id: Date.now() }, ...beritaList])
+        onAddBerita={(item: any) =>
+          setBeritaList((prev: any) => [{ ...item, id: Date.now() }, ...prev])
         }
-        onDeleteBerita={(id) =>
-          setBeritaList((prev) => prev.filter((i) => i.id !== id))
+        onDeleteBerita={(id: string | number) =>
+          setBeritaList((prev: any) => prev.filter((i: any) => i.id !== id))
         }
         cctvList={cctvList}
-        onAddCctv={(item) =>
-          setCctvList([{ ...item, id: Date.now() }, ...cctvList])
+        onAddCctv={(item: any) =>
+          setCctvList((prev: any) => [{ ...item, id: Date.now() }, ...prev])
         }
-        onDeleteCctv={(id) =>
-          setCctvList((prev) => prev.filter((i) => i.id !== id))
+        onDeleteCctv={(id: string | number) =>
+          setCctvList((prev: any) => prev.filter((i: any) => i.id !== id))
         }
         aparatList={aparatList}
-        onAddAparat={(item) =>
-          setAparatList([{ ...item, id: Date.now() }, ...aparatList])
+        onAddAparat={(item: any) =>
+          setAparatList((prev: any) => [{ ...item, id: Date.now() }, ...prev])
         }
-        onDeleteAparat={(id) =>
-          setAparatList((prev) => prev.filter((i) => i.id !== id))
+        onDeleteAparat={(id: string | number) =>
+          setAparatList((prev: any) => prev.filter((i: any) => i.id !== id))
         }
-        kecamatanStats={kecamatanStats}
-        onUpdateKecamatanStats={setKecamatanStats}
+        wargaStats={wargaStats}
+        onUpdateWargaStats={setWargaStats}
         onBackToPublic={() => setCurrentPage("public")}
       />
     );
   }
 
-  // Safe Values & Calculations
-  const totalPop = kecamatanStats?.totalPopulasi ?? 118400;
-  const totalKK = kecamatanStats?.totalKK ?? 34500;
-  const numKelurahan = kecamatanStats?.jumlahKelurahan ?? 8;
-
-  // Data Bar Chart Baru Khusus Batununggal
-  const demografiBarData = [
-    {
-      kategori: "Anak (0-17)",
-      jumlah: kecamatanStats?.anakRemaja ?? 28400,
-      color: "#2563eb",
-    },
-    {
-      kategori: "Produktif (18-59)",
-      jumlah: kecamatanStats?.usiaProduktif ?? 78000,
-      color: "#00a86b",
-    },
-    {
-      kategori: "Lansia (60+)",
-      jumlah: kecamatanStats?.lansia ?? 12000,
-      color: "#f59e0b",
-    },
-  ];
+  const totalPop = wargaStats?.totalWarga ?? 12500;
 
   return (
     <div
       style={{
-        fontFamily: "system-ui, sans-serif",
+        fontFamily: "system-ui, -apple-system, sans-serif",
         backgroundColor: "#f8fafc",
         color: "#0f172a",
         minHeight: "100vh",
@@ -366,44 +305,51 @@ export default function App() {
         style={{
           backgroundColor: "#ffffff",
           borderBottom: "1px solid #e2e8f0",
-          padding: "1rem 2rem",
+          padding: "1.2rem 2.5rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           position: "sticky",
           top: 0,
           zIndex: 50,
+          boxShadow: "0 2px 10px rgba(0,0,0,0.03)",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <img
-            src="/logojabar.png"
-            alt="Logo Jabar"
-            style={{ height: "38px" }}
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
+          <div
+            style={{
+              backgroundColor: "#0284c7",
+              color: "#fff",
+              padding: "10px",
+              borderRadius: "12px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
-          />
+          >
+            <Building2 size={26} />
+          </div>
           <div>
             <h1
               style={{
-                fontSize: "1.1rem",
+                fontSize: "1.2rem",
                 fontWeight: 800,
                 margin: 0,
                 color: "#0f172a",
+                letterSpacing: "-0.5px",
               }}
             >
               BATUNUNGGAL
             </h1>
             <p
               style={{
-                fontSize: "0.75rem",
-                color: "#00a86b",
+                fontSize: "0.8rem",
+                color: "#0284c7",
                 margin: 0,
                 fontWeight: 700,
               }}
             >
-              Portal Desa Digital
+              Portal Layanan Digital
             </p>
           </div>
         </div>
@@ -411,35 +357,23 @@ export default function App() {
         <nav
           style={{
             display: "flex",
-            gap: "1.5rem",
-            fontSize: "0.9rem",
+            gap: "2rem",
+            fontSize: "0.95rem",
             fontWeight: 600,
-            color: "#475569",
+            color: "#334155",
           }}
         >
           <a
             href="#beranda"
-            style={{ color: "#0f172a", textDecoration: "none" }}
+            style={{ color: "#0284c7", textDecoration: "none" }}
           >
             Beranda
           </a>
           <a
-            href="#profil"
+            href="#layanan"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            Profil & Peta
-          </a>
-          <a
-            href="#aparat"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            Aparat
-          </a>
-          <a
-            href="#statistik"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            Statistik
+            Layanan
           </a>
           <a
             href="#berita"
@@ -450,831 +384,622 @@ export default function App() {
           <a href="#umkm" style={{ textDecoration: "none", color: "inherit" }}>
             UMKM
           </a>
-          <a href="#cctv" style={{ textDecoration: "none", color: "inherit" }}>
-            CCTV Live
+          <a href="#peta" style={{ textDecoration: "none", color: "inherit" }}>
+            Peta Wilayah
+          </a>
+          <a href="#lapor" style={{ textDecoration: "none", color: "inherit" }}>
+            Lapor Masalah
           </a>
         </nav>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <button
             type="button"
             onClick={() => setCurrentPage("admin")}
             style={{
-              backgroundColor: "#f1f5f9",
-              color: "#334155",
-              border: "1px solid #cbd5e1",
-              fontSize: "0.8rem",
+              backgroundColor: "#f0f9ff",
+              color: "#0284c7",
+              border: "1px solid #bae6fd",
+              fontSize: "0.85rem",
               fontWeight: 700,
-              padding: "8px 14px",
-              borderRadius: "8px",
+              padding: "9px 18px",
+              borderRadius: "10px",
               cursor: "pointer",
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
             }}
           >
-            <Lock size={14} color="#00a86b" /> Login Admin
+            <Lock size={15} color="#0284c7" /> Akses Portal Admin
           </button>
-          <a
-            href="#pengaduan"
-            style={{
-              backgroundColor: "#00a86b",
-              color: "#ffffff",
-              textDecoration: "none",
-              padding: "9px 18px",
-              borderRadius: "20px",
-              fontWeight: 700,
-              fontSize: "0.85rem",
-            }}
-          >
-            Lapor Pengaduan
-          </a>
         </div>
       </header>
 
-      {/* 2. HERO SECTION */}
+      {/* 2. HERO SECTION WITH IMAGE */}
       <section
         id="beranda"
         style={{
-          scrollMarginTop: "40px",
-          padding: "2rem",
-          maxWidth: "1200px",
+          scrollMarginTop: "150px",
+          padding: "4.5rem 2.5rem",
+          maxWidth: "1280px",
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "2fr 1fr",
-          gap: "1.5rem",
+          gridTemplateColumns: "1.3fr 1fr",
+          gap: "3rem",
+          alignItems: "center",
         }}
       >
-        <div
-          style={{
-            backgroundColor: "#1e293b",
-            color: "#ffffff",
-            borderRadius: "20px",
-            padding: "2.5rem",
-            backgroundImage: 'url("/bg-hero1.jpg")',
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            position: "relative",
-            overflow: "hidden",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            minHeight: "340px",
-          }}
-        >
-          <div style={{ position: "relative", zIndex: 2 }}>
-            <span
+        <div>
+          <span
+            style={{
+              backgroundColor: "#e0f2fe",
+              color: "#0369a1",
+              padding: "8px 16px",
+              borderRadius: "20px",
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              border: "1px solid #bae6fd",
+              display: "inline-block",
+              marginBottom: "1.2rem",
+            }}
+          >
+            ⚡ Digital Village Batununggal
+          </span>
+          <h2
+            style={{
+              fontSize: "3.2rem",
+              fontWeight: 900,
+              margin: "0 0 1.5rem 0",
+              lineHeight: 1.15,
+              color: "#0f172a",
+              letterSpacing: "-1px",
+            }}
+          >
+            Akses Tanpa Batas Layanan Publik
+          </h2>
+          <p
+            style={{
+              color: "#475569",
+              fontSize: "1.1rem",
+              lineHeight: 1.7,
+              margin: "0 0 2rem 0",
+            }}
+          >
+            Mewujudkan pelayanan publik yang efisien, transparan, dan inklusif
+            melalui integrasi teknologi informasi di setiap lapisan kehidupan
+            warga Kelurahan Batununggal.
+          </p>
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <a
+              href="#layanan"
               style={{
-                backgroundColor: "rgba(0,168,107,0.25)",
-                color: "#4ade80",
-                padding: "6px 14px",
-                borderRadius: "20px",
-                fontSize: "0.75rem",
+                backgroundColor: "#0284c7",
+                color: "#fff",
+                padding: "14px 28px",
+                borderRadius: "30px",
                 fontWeight: 700,
-                border: "1px solid #00a86b",
+                textDecoration: "none",
+                fontSize: "0.95rem",
+                boxShadow: "0 4px 14px rgba(2,132,199,0.3)",
               }}
             >
-              ● Sistem Terpadu Desa Digital LSKK
+              Mulai Gunakan Layanan
+            </a>
+            <a
+              href="#peta"
+              style={{
+                backgroundColor: "#ffffff",
+                color: "#0284c7",
+                border: "2px solid #bae6fd",
+                padding: "14px 28px",
+                borderRadius: "30px",
+                fontWeight: 700,
+                textDecoration: "none",
+                fontSize: "0.95rem",
+              }}
+            >
+              Pelajari Selengkapnya
+            </a>
+          </div>
+        </div>
+
+        <div
+          style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "28px",
+            border: "1px solid #e2e8f0",
+            padding: "1.5rem",
+            boxShadow: "0 20px 40px -15px rgba(0,0,0,0.06)",
+          }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&q=80&w=800"
+            alt="Layanan Digital Batununggal"
+            style={{
+              width: "100%",
+              height: "200px",
+              objectFit: "cover",
+              borderRadius: "16px",
+              marginBottom: "1.25rem",
+            }}
+          />
+          <div
+            style={{
+              backgroundColor: "#0284c7",
+              color: "#fff",
+              padding: "1rem",
+              borderRadius: "16px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "1rem",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <Zap size={22} />
+              <span style={{ fontWeight: 800, fontSize: "0.9rem" }}>
+                STATUS SISTEM
+              </span>
+            </div>
+            <span
+              style={{
+                backgroundColor: "#22c55e",
+                color: "#fff",
+                fontSize: "0.75rem",
+                fontWeight: 800,
+                padding: "4px 12px",
+                borderRadius: "12px",
+              }}
+            >
+              100% Online
+            </span>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "1rem",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "#f8fafc",
+                border: "1px solid #e2e8f0",
+                padding: "1.25rem",
+                borderRadius: "16px",
+              }}
+            >
+              <div
+                style={{
+                  color: "#0284c7",
+                  fontSize: "0.8rem",
+                  fontWeight: 800,
+                  marginBottom: "4px",
+                }}
+              >
+                TOTAL WARGA
+              </div>
+              <div
+                style={{
+                  fontSize: "1.8rem",
+                  fontWeight: 900,
+                  color: "#0f172a",
+                }}
+              >
+                {totalPop}
+              </div>
+              <div
+                style={{
+                  fontSize: "0.75rem",
+                  color: "#64748b",
+                  marginTop: "2px",
+                }}
+              >
+                Jiwa Terdaftar
+              </div>
+            </div>
+            <div
+              style={{
+                backgroundColor: "#f8fafc",
+                border: "1px solid #e2e8f0",
+                padding: "1.25rem",
+                borderRadius: "16px",
+              }}
+            >
+              <div
+                style={{
+                  color: "#0284c7",
+                  fontSize: "0.8rem",
+                  fontWeight: 800,
+                  marginBottom: "4px",
+                }}
+              >
+                LAYANAN
+              </div>
+              <div
+                style={{
+                  fontSize: "1.8rem",
+                  fontWeight: 900,
+                  color: "#0f172a",
+                }}
+              >
+                24 Jam
+              </div>
+              <div
+                style={{
+                  fontSize: "0.75rem",
+                  color: "#64748b",
+                  marginTop: "2px",
+                }}
+              >
+                Mandiri & Otomatis
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. LAYANAN UTAMA SECTION WITH CARD IMAGES */}
+      <section
+        id="layanan"
+        style={{
+          scrollMarginTop: "150px",
+          padding: "5rem 2.5rem",
+          backgroundColor: "#ffffff",
+          borderTop: "1px solid #e2e8f0",
+          borderBottom: "1px solid #e2e8f0",
+        }}
+      >
+        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+          <div
+            style={{
+              textAlign: "center",
+              maxWidth: "850px",
+              margin: "0 auto 4rem auto",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "0.8rem",
+                color: "#0284c7",
+                fontWeight: 800,
+                letterSpacing: "1.5px",
+                textTransform: "uppercase",
+              }}
+            >
+              LAYANAN UTAMA DIGITAL VILLAGE
             </span>
             <h2
               style={{
-                fontSize: "2.3rem",
-                fontWeight: 800,
-                margin: "1rem 0 0.5rem 0",
+                fontSize: "2.4rem",
+                fontWeight: 900,
+                margin: "12px 0 1.25rem 0",
+                color: "#0f172a",
                 lineHeight: 1.2,
               }}
             >
-              Portal Pelayanan & Informasi{" "}
-              <span style={{ color: "#4ade80" }}>Kecamatan Batununggal</span>
+              Portal Terpadu Administrasi & Informasi
             </h2>
             <p
-              style={{
-                color: "#cbd5e1",
-                fontSize: "0.9rem",
-                maxWidth: "520px",
-                margin: "0 0 1.5rem 0",
-                lineHeight: 1.5,
-              }}
+              style={{ color: "#64748b", fontSize: "1.1rem", lineHeight: 1.7 }}
             >
-              Pusat transparansi administrasi, pemantauan statistik
-              kependudukan, etalase UMKM lokal, hingga fasilitas pengaduan warga
-              secara online.
+              Infrastruktur digital terintegrasi untuk memudahkan setiap
+              kebutuhan pelayanan warga Kelurahan Batununggal.
             </p>
           </div>
 
           <div
             style={{
-              backgroundColor: "rgba(255,255,255,0.15)",
-              backdropFilter: "blur(10px)",
-              padding: "8px 16px",
-              borderRadius: "30px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              zIndex: 2,
-              border: "1px solid rgba(255,255,255,0.2)",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "2.5rem",
             }}
           >
-            <span
-              style={{ fontSize: "0.8rem", color: "#e2e8f0", fontWeight: 600 }}
-            >
-              Quick Search:
-            </span>
-            <input
-              type="text"
-              placeholder="Cari layanan, KTP, KK, UMKM..."
+            {/* Card 1: Layanan Mandiri */}
+            <div
               style={{
-                background: "transparent",
-                border: "none",
-                color: "#fff",
-                padding: "6px",
-                fontSize: "0.85rem",
-                width: "60%",
-                outline: "none",
-              }}
-            />
-            <button
-              type="button"
-              style={{
-                backgroundColor: "#00a86b",
-                color: "#fff",
-                border: "none",
-                padding: "6px 16px",
+                backgroundColor: "#f8fafc",
+                border: "1px solid #cbd5e1",
                 borderRadius: "20px",
-                fontWeight: 700,
-                cursor: "pointer",
-                fontSize: "0.8rem",
-              }}
-            >
-              Cari
-            </button>
-          </div>
-        </div>
-
-        {/* HERO RIGHT STATS CARDS */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              borderRadius: "16px",
-              border: "1px solid #e2e8f0",
-              padding: "1.5rem",
-            }}
-          >
-            <span
-              style={{ fontSize: "0.75rem", color: "#94a3b8", fontWeight: 800 }}
-            >
-              TOTAL PENDUDUK TERDATA
-            </span>
-            <div
-              style={{
-                fontSize: "2.2rem",
-                fontWeight: 800,
-                color: "#0f172a",
-                margin: "4px 0",
-              }}
-            >
-              {totalPop.toLocaleString("id-ID")}
-            </div>
-            <span
-              style={{ fontSize: "0.8rem", color: "#00a86b", fontWeight: 700 }}
-            >
-              Jiwa di {numKelurahan} Kelurahan Wilayah
-            </span>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: "#00a86b",
-              color: "#ffffff",
-              borderRadius: "16px",
-              padding: "1.5rem",
-              flexGrow: 1,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <div>
-              <span
-                style={{ fontSize: "0.75rem", opacity: 0.9, fontWeight: 700 }}
-              >
-                LAYANAN PENGADUAN & CCTV
-              </span>
-              <h3
-                style={{
-                  fontSize: "1.3rem",
-                  fontWeight: 800,
-                  margin: "4px 0 2px 0",
-                }}
-              >
-                Status Sistem Active
-              </h3>
-              <p style={{ fontSize: "0.8rem", opacity: 0.85, margin: 0 }}>
-                Monitoring Real-time 24/7
-              </p>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: "1rem",
-              }}
-            >
-              <span style={{ fontSize: "0.8rem" }}>Respon Cepat:</span>
-              <span
-                style={{
-                  backgroundColor: "#ffffff",
-                  color: "#00a86b",
-                  padding: "4px 12px",
-                  borderRadius: "12px",
-                  fontWeight: 800,
-                  fontSize: "0.8rem",
-                }}
-              >
-                1 x 24 Jam
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. PROFIL & PETA SECTION */}
-      <section
-        id="profil"
-        style={{
-          scrollMarginTop: "40px",
-          padding: "2rem",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "1.4rem",
-            fontWeight: 800,
-            margin: "0 0 0.25rem 0",
-          }}
-        >
-          Profil & Wilayah Kecamatan
-        </h2>
-        <p
-          style={{
-            color: "#64748b",
-            fontSize: "0.9rem",
-            margin: "0 0 1.25rem 0",
-          }}
-        >
-          Sejarah singkat, visi-misi, dan pemetaan geografis Batununggal.
-        </p>
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            borderRadius: "16px",
-            border: "1px solid #e2e8f0",
-            padding: "1.25rem",
-          }}
-        >
-          <iframe
-            title="Peta Batununggal"
-            src="https://maps.google.com/maps?q=Kecamatan%20Batununggal%20Bandung&t=&z=14&ie=UTF8&iwloc=&output=embed"
-            style={{
-              width: "100%",
-              height: "320px",
-              border: "none",
-              borderRadius: "12px",
-            }}
-          />
-        </div>
-      </section>
-
-      {/* 4. APARAT & PEJABAT SECTION */}
-      <section
-        id="aparat"
-        style={{
-          scrollMarginTop: "40px",
-          padding: "2rem",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        <div style={{ fontSize: "0.75rem", color: "#00a86b", fontWeight: 800 }}>
-          STRUKTUR ORGANISASI
-        </div>
-        <h2
-          style={{
-            fontSize: "1.4rem",
-            fontWeight: 800,
-            margin: "2px 0 1.25rem 0",
-          }}
-        >
-          Pejabat & Aparat Kecamatan
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "1.25rem",
-          }}
-        >
-          {(aparatList || []).map((item) => (
-            <div
-              key={item.id}
-              style={{
-                backgroundColor: "#ffffff",
-                border: "1px solid #e2e8f0",
-                borderRadius: "12px",
-                padding: "1.25rem",
-              }}
-            >
-              <h3
-                style={{
-                  margin: "0 0 4px 0",
-                  fontSize: "1.05rem",
-                  fontWeight: 800,
-                }}
-              >
-                {item.nama}
-              </h3>
-              <p
-                style={{
-                  margin: "0 0 8px 0",
-                  fontSize: "0.85rem",
-                  color: "#00a86b",
-                  fontWeight: 700,
-                }}
-              >
-                {item.jabatan}
-              </p>
-              <div
-                style={{
-                  fontSize: "0.8rem",
-                  color: "#64748b",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
-                <Phone size={14} /> Kontak: {item.kontak}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. STATISTIK DEMOGRAFI SECTION */}
-      <section
-        id="statistik"
-        style={{
-          scrollMarginTop: "40px",
-          padding: "2.5rem 2rem",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        <div style={{ marginBottom: "1.5rem" }}>
-          <div
-            style={{
-              fontSize: "0.75rem",
-              color: "#00a86b",
-              fontWeight: 800,
-              letterSpacing: "0.5px",
-            }}
-          >
-            DEMOGRAFI & POPULASI
-          </div>
-          <h2
-            style={{
-              fontSize: "1.5rem",
-              fontWeight: 800,
-              margin: "4px 0 0 0",
-              color: "#0f172a",
-            }}
-          >
-            Statistik Wilayah Batununggal
-          </h2>
-        </div>
-
-        {/* 4 Cards Ringkasan Top Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "1.25rem",
-            marginBottom: "1.5rem",
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "14px",
-              padding: "1.25rem",
-            }}
-          >
-            <div
-              style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 700 }}
-            >
-              TOTAL PENDUDUK
-            </div>
-            <div
-              style={{
-                fontSize: "1.8rem",
-                fontWeight: 800,
-                color: "#00a86b",
-                margin: "4px 0",
-              }}
-            >
-              {totalPop.toLocaleString("id-ID")}{" "}
-              <span
-                style={{
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  color: "#64748b",
-                }}
-              >
-                Jiwa
-              </span>
-            </div>
-            <div style={{ fontSize: "0.75rem", color: "#64748b" }}>
-              Terdata di sistem digital
-            </div>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "14px",
-              padding: "1.25rem",
-            }}
-          >
-            <div
-              style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 700 }}
-            >
-              KEPALA KELUARGA
-            </div>
-            <div
-              style={{
-                fontSize: "1.8rem",
-                fontWeight: 800,
-                color: "#0f172a",
-                margin: "4px 0",
-              }}
-            >
-              {totalKK.toLocaleString("id-ID")}{" "}
-              <span
-                style={{
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  color: "#64748b",
-                }}
-              >
-                KK
-              </span>
-            </div>
-            <div style={{ fontSize: "0.75rem", color: "#64748b" }}>
-              Tersebar di {numKelurahan} Kelurahan
-            </div>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "14px",
-              padding: "1.25rem",
-            }}
-          >
-            <div
-              style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 700 }}
-            >
-              CAKUPAN WILAYAH
-            </div>
-            <div
-              style={{
-                fontSize: "1.8rem",
-                fontWeight: 800,
-                color: "#0f172a",
-                margin: "4px 0",
-              }}
-            >
-              {numKelurahan}{" "}
-              <span
-                style={{
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  color: "#64748b",
-                }}
-              >
-                Kelurahan
-              </span>
-            </div>
-            <div
-              style={{ fontSize: "0.75rem", color: "#00a86b", fontWeight: 700 }}
-            >
-              Kec. Batununggal Bandung
-            </div>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "14px",
-              padding: "1.25rem",
-            }}
-          >
-            <div
-              style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 700 }}
-            >
-              UMKM TERDAFTAR
-            </div>
-            <div
-              style={{
-                fontSize: "1.8rem",
-                fontWeight: 800,
-                color: "#2563eb",
-                margin: "4px 0",
-              }}
-            >
-              {(umkmList || []).length}{" "}
-              <span
-                style={{
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  color: "#64748b",
-                }}
-              >
-                Usaha
-              </span>
-            </div>
-            <div style={{ fontSize: "0.75rem", color: "#64748b" }}>
-              Aktif di katalog produk
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Split Grid: Bar Chart & Progress Indicators */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "1.5rem",
-          }}
-        >
-          {/* Left: Bar Chart Visual */}
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "16px",
-              padding: "1.5rem",
-            }}
-          >
-            <h3
-              style={{
-                margin: "0 0 1rem 0",
-                fontSize: "1.05rem",
-                fontWeight: 800,
-                color: "#0f172a",
-              }}
-            >
-              📊 Distribusi Usia Warga (Bar Chart)
-            </h3>
-            <div style={{ width: "100%", height: "230px" }}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={demografiBarData}
-                  margin={{ top: 10, right: 10, left: -15, bottom: 0 }}
-                >
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    vertical={false}
-                    stroke="#f1f5f9"
-                  />
-                  <XAxis
-                    dataKey="kategori"
-                    stroke="#64748b"
-                    fontSize={12}
-                    tickLine={false}
-                  />
-                  <YAxis stroke="#64748b" fontSize={12} tickLine={false} />
-                  <Tooltip
-                    formatter={(val: any) => [
-                      `${Number(val).toLocaleString("id-ID")} Jiwa`,
-                      "Jumlah",
-                    ]}
-                  />
-                  <Bar dataKey="jumlah" radius={[8, 8, 0, 0]}>
-                    {demografiBarData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Right: Progress Meter Proporsi */}
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "16px",
-              padding: "1.5rem",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <h3
-              style={{
-                margin: "0 0 1.25rem 0",
-                fontSize: "1.05rem",
-                fontWeight: 800,
-                color: "#0f172a",
-              }}
-            >
-              📈 Rincian Proporsi Kelompok Usia
-            </h3>
-
-            <div
-              style={{
+                overflow: "hidden",
                 display: "flex",
                 flexDirection: "column",
-                gap: "1.25rem",
               }}
             >
-              {/* Usia Produktif */}
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontSize: "0.85rem",
-                    fontWeight: 700,
-                    marginBottom: "6px",
-                  }}
-                >
-                  <span>Usia Produktif (18 - 59 Thn)</span>
-                  <span style={{ color: "#00a86b" }}>
-                    {(
-                      ((kecamatanStats?.usiaProduktif ?? 78000) / totalPop) *
-                      100
-                    ).toFixed(1)}
-                    % (
-                    {(kecamatanStats?.usiaProduktif ?? 78000).toLocaleString(
-                      "id-ID",
-                    )}{" "}
-                    Jiwa)
-                  </span>
-                </div>
-                <div
-                  style={{
-                    height: "10px",
-                    backgroundColor: "#f1f5f9",
-                    borderRadius: "6px",
-                    overflow: "hidden",
-                  }}
-                >
+              <img
+                src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800"
+                alt="Layanan Mandiri"
+                style={{ width: "100%", height: "180px", objectFit: "cover" }}
+              />
+              <div
+                style={{
+                  padding: "2rem",
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
                   <div
                     style={{
-                      width: `${((kecamatanStats?.usiaProduktif ?? 78000) / totalPop) * 100}%`,
-                      backgroundColor: "#00a86b",
-                      height: "100%",
-                      borderRadius: "6px",
+                      backgroundColor: "#0284c7",
+                      color: "#fff",
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "1rem",
                     }}
-                  />
+                  >
+                    <FileText size={22} />
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "1.25rem",
+                      fontWeight: 800,
+                      color: "#0f172a",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Layanan Mandiri
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: "0.95rem",
+                      color: "#475569",
+                      lineHeight: 1.6,
+                      margin: "0 0 1.5rem 0",
+                    }}
+                  >
+                    Portal mandiri (*self-service*) untuk mengurus surat
+                    pengantar, pengaduan, dan berkas kependudukan tanpa antre.
+                  </p>
                 </div>
+                <a
+                  href="#lapor"
+                  style={{
+                    color: "#0284c7",
+                    fontWeight: 800,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  Akses Portal Mandiri <ArrowRight size={16} />
+                </a>
               </div>
+            </div>
 
-              {/* Anak & Remaja */}
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontSize: "0.85rem",
-                    fontWeight: 700,
-                    marginBottom: "6px",
-                  }}
-                >
-                  <span>Anak & Remaja (0 - 17 Thn)</span>
-                  <span style={{ color: "#2563eb" }}>
-                    {(
-                      ((kecamatanStats?.anakRemaja ?? 28400) / totalPop) *
-                      100
-                    ).toFixed(1)}
-                    % (
-                    {(kecamatanStats?.anakRemaja ?? 28400).toLocaleString(
-                      "id-ID",
-                    )}{" "}
-                    Jiwa)
-                  </span>
-                </div>
-                <div
-                  style={{
-                    height: "10px",
-                    backgroundColor: "#f1f5f9",
-                    borderRadius: "6px",
-                    overflow: "hidden",
-                  }}
-                >
+            {/* Card 2: Internet Desa */}
+            <div
+              style={{
+                backgroundColor: "#f8fafc",
+                border: "1px solid #cbd5e1",
+                borderRadius: "20px",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800"
+                alt="Internet Desa"
+                style={{ width: "100%", height: "180px", objectFit: "cover" }}
+              />
+              <div
+                style={{
+                  padding: "2rem",
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
                   <div
                     style={{
-                      width: `${((kecamatanStats?.anakRemaja ?? 28400) / totalPop) * 100}%`,
-                      backgroundColor: "#2563eb",
-                      height: "100%",
-                      borderRadius: "6px",
+                      backgroundColor: "#0284c7",
+                      color: "#fff",
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "1rem",
                     }}
-                  />
+                  >
+                    <Wifi size={22} />
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "1.25rem",
+                      fontWeight: 800,
+                      color: "#0f172a",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Internet Kelurahan
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: "0.95rem",
+                      color: "#475569",
+                      lineHeight: 1.6,
+                      margin: "0 0 1.5rem 0",
+                    }}
+                  >
+                    Akses jaringan Wi-Fi publik gratis yang tersebar di titik
+                    publik dan fasilitas warga Kelurahan Batununggal.
+                  </p>
                 </div>
+                <a
+                  href="#peta"
+                  style={{
+                    color: "#0284c7",
+                    fontWeight: 800,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  Lihat Lokasi Wi-Fi <ArrowRight size={16} />
+                </a>
               </div>
+            </div>
 
-              {/* Lansia */}
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontSize: "0.85rem",
-                    fontWeight: 700,
-                    marginBottom: "6px",
-                  }}
-                >
-                  <span>Lanjut Usia (60+ Thn)</span>
-                  <span style={{ color: "#f59e0b" }}>
-                    {(
-                      ((kecamatanStats?.lansia ?? 12000) / totalPop) *
-                      100
-                    ).toFixed(1)}
-                    % (
-                    {(kecamatanStats?.lansia ?? 12000).toLocaleString("id-ID")}{" "}
-                    Jiwa)
-                  </span>
-                </div>
-                <div
-                  style={{
-                    height: "10px",
-                    backgroundColor: "#f1f5f9",
-                    borderRadius: "6px",
-                    overflow: "hidden",
-                  }}
-                >
+            {/* Card 3: Pusat Data */}
+            <div
+              style={{
+                backgroundColor: "#f8fafc",
+                border: "1px solid #cbd5e1",
+                borderRadius: "20px",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <img
+                src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800"
+                alt="Pusat Data Desa"
+                style={{ width: "100%", height: "180px", objectFit: "cover" }}
+              />
+              <div
+                style={{
+                  padding: "2rem",
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
                   <div
                     style={{
-                      width: `${((kecamatanStats?.lansia ?? 12000) / totalPop) * 100}%`,
-                      backgroundColor: "#f59e0b",
-                      height: "100%",
-                      borderRadius: "6px",
+                      backgroundColor: "#0284c7",
+                      color: "#fff",
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "1rem",
                     }}
-                  />
+                  >
+                    <Server size={22} />
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "1.25rem",
+                      fontWeight: 800,
+                      color: "#0f172a",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Pusat Data Terpadu
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: "0.95rem",
+                      color: "#475569",
+                      lineHeight: 1.6,
+                      margin: "0 0 1.5rem 0",
+                    }}
+                  >
+                    Pusat data digital lokal yang terenkripsi aman untuk
+                    pengelolaan arsip, statistik kependudukan, dan laporan.
+                  </p>
                 </div>
+                <a
+                  href="#statistik"
+                  style={{
+                    color: "#0284c7",
+                    fontWeight: 800,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
+                >
+                  Standar Keamanan <ArrowRight size={16} />
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 6. BERITA & PENGUMUMAN SECTION */}
+      {/* 4. BERITA & PENGUMUMAN SECTION WITH IMAGES */}
       <section
         id="berita"
         style={{
-          scrollMarginTop: "40px",
-          padding: "2rem",
-          maxWidth: "1200px",
+          scrollMarginTop: "150px",
+          padding: "5rem 2.5rem",
+          maxWidth: "1280px",
           margin: "0 auto",
         }}
       >
-        <div style={{ fontSize: "0.75rem", color: "#00a86b", fontWeight: 800 }}>
-          KABAR KECAMATAN
-        </div>
-        <h2
+        <div
           style={{
-            fontSize: "1.4rem",
-            fontWeight: 800,
-            margin: "2px 0 1.25rem 0",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            marginBottom: "2.5rem",
+            flexWrap: "wrap",
+            gap: "1rem",
           }}
         >
-          Berita & Pengumuman Resmi
-        </h2>
+          <div>
+            <span
+              style={{
+                fontSize: "0.8rem",
+                color: "#0284c7",
+                fontWeight: 800,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+              }}
+            >
+              INFORMASI TERKINI
+            </span>
+            <h2
+              style={{
+                fontSize: "2.2rem",
+                fontWeight: 900,
+                margin: "4px 0 0 0",
+                color: "#0f172a",
+              }}
+            >
+              Kabar & Kegiatan Batununggal
+            </h2>
+          </div>
+        </div>
+
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "1.25rem",
+            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+            gap: "2rem",
           }}
         >
-          {(beritaList || []).map((item) => (
+          {beritaList.map((item) => (
             <div
               key={item.id}
               style={{
                 backgroundColor: "#ffffff",
                 border: "1px solid #e2e8f0",
-                borderRadius: "12px",
+                borderRadius: "20px",
                 overflow: "hidden",
+                boxShadow: "0 8px 25px rgba(0,0,0,0.03)",
                 display: "flex",
                 flexDirection: "column",
               }}
@@ -1282,11 +1007,11 @@ export default function App() {
               <img
                 src={item.image}
                 alt={item.judul}
-                style={{ width: "100%", height: "160px", objectFit: "cover" }}
+                style={{ width: "100%", height: "220px", objectFit: "cover" }}
               />
               <div
                 style={{
-                  padding: "1.25rem",
+                  padding: "1.75rem",
                   flexGrow: 1,
                   display: "flex",
                   flexDirection: "column",
@@ -1296,9 +1021,9 @@ export default function App() {
                 <div>
                   <span
                     style={{
-                      backgroundColor: "#e1f2e5",
-                      color: "#00a86b",
-                      padding: "3px 10px",
+                      backgroundColor: "#e0f2fe",
+                      color: "#0369a1",
+                      padding: "4px 12px",
                       borderRadius: "12px",
                       fontSize: "0.75rem",
                       fontWeight: 700,
@@ -1308,9 +1033,9 @@ export default function App() {
                   </span>
                   <h3
                     style={{
-                      fontSize: "1.05rem",
+                      fontSize: "1.2rem",
                       fontWeight: 800,
-                      margin: "8px 0 4px 0",
+                      margin: "10px 0 6px 0",
                       color: "#0f172a",
                     }}
                   >
@@ -1318,19 +1043,20 @@ export default function App() {
                   </h3>
                   <div
                     style={{
-                      fontSize: "0.75rem",
-                      color: "#94a3b8",
-                      marginBottom: "8px",
+                      fontSize: "0.8rem",
+                      color: "#64748b",
+                      marginBottom: "10px",
+                      fontWeight: 600,
                     }}
                   >
                     📅 {item.tanggal}
                   </div>
                   <p
                     style={{
-                      fontSize: "0.85rem",
-                      color: "#64748b",
-                      margin: "0 0 1rem 0",
-                      lineHeight: 1.5,
+                      fontSize: "0.95rem",
+                      color: "#475569",
+                      margin: "0 0 1.25rem 0",
+                      lineHeight: 1.6,
                     }}
                   >
                     {item.desc}
@@ -1340,12 +1066,12 @@ export default function App() {
                   type="button"
                   onClick={() => setSelectedBerita(item)}
                   style={{
-                    backgroundColor: "#f1f5f9",
-                    color: "#00a86b",
-                    border: "none",
-                    padding: "8px 14px",
-                    borderRadius: "8px",
-                    fontSize: "0.8rem",
+                    backgroundColor: "#f0f9ff",
+                    color: "#0284c7",
+                    border: "1px solid #bae6fd",
+                    padding: "10px 18px",
+                    borderRadius: "10px",
+                    fontSize: "0.85rem",
                     fontWeight: 700,
                     cursor: "pointer",
                     display: "inline-flex",
@@ -1354,7 +1080,7 @@ export default function App() {
                     alignSelf: "flex-start",
                   }}
                 >
-                  <Newspaper size={15} /> Lihat Detail Berita
+                  <Newspaper size={16} /> Baca Selengkapnya
                 </button>
               </div>
             </div>
@@ -1362,7 +1088,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* MODAL BERITA */}
       {selectedBerita && (
         <div
           style={{
@@ -1381,25 +1106,25 @@ export default function App() {
           <div
             style={{
               backgroundColor: "#ffffff",
-              borderRadius: "16px",
-              maxWidth: "500px",
+              borderRadius: "20px",
+              maxWidth: "550px",
               width: "100%",
               overflow: "hidden",
-              boxShadow: "0 20px 25px -5px rgba(0,0,0,0.1)",
+              boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
             }}
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={selectedBerita.image}
               alt={selectedBerita.judul}
-              style={{ width: "100%", height: "200px", objectFit: "cover" }}
+              style={{ width: "100%", height: "240px", objectFit: "cover" }}
             />
-            <div style={{ padding: "1.5rem" }}>
+            <div style={{ padding: "2rem" }}>
               <span
                 style={{
-                  backgroundColor: "#e1f2e5",
-                  color: "#00a86b",
-                  padding: "3px 10px",
+                  backgroundColor: "#e0f2fe",
+                  color: "#0369a1",
+                  padding: "4px 12px",
                   borderRadius: "12px",
                   fontSize: "0.75rem",
                   fontWeight: 700,
@@ -1409,18 +1134,19 @@ export default function App() {
               </span>
               <h3
                 style={{
-                  fontSize: "1.2rem",
-                  fontWeight: 800,
-                  margin: "8px 0 4px 0",
+                  fontSize: "1.4rem",
+                  fontWeight: 900,
+                  margin: "10px 0 6px 0",
+                  color: "#0f172a",
                 }}
               >
                 {selectedBerita.judul}
               </h3>
               <p
                 style={{
-                  fontSize: "0.85rem",
-                  color: "#64748b",
-                  lineHeight: 1.6,
+                  fontSize: "1rem",
+                  color: "#475569",
+                  lineHeight: 1.7,
                   margin: "1rem 0",
                 }}
               >
@@ -1430,11 +1156,11 @@ export default function App() {
                 type="button"
                 onClick={() => setSelectedBerita(null)}
                 style={{
-                  backgroundColor: "#00a86b",
+                  backgroundColor: "#0284c7",
                   color: "#fff",
                   border: "none",
-                  padding: "10px 20px",
-                  borderRadius: "8px",
+                  padding: "12px 24px",
+                  borderRadius: "10px",
                   fontWeight: 700,
                   cursor: "pointer",
                   width: "100%",
@@ -1447,476 +1173,850 @@ export default function App() {
         </div>
       )}
 
-      {/* 7. KATALOG UMKM SECTION */}
+      {/* 5. POTENSI UMKM SECTION WITH IMAGES */}
       <section
         id="umkm"
         style={{
-          scrollMarginTop: "40px",
-          padding: "2rem",
-          maxWidth: "1200px",
-          margin: "0 auto",
+          scrollMarginTop: "150px",
+          padding: "5rem 2.5rem",
+          backgroundColor: "#ffffff",
+          borderTop: "1px solid #e2e8f0",
+          borderBottom: "1px solid #e2e8f0",
         }}
       >
-        <div style={{ fontSize: "0.75rem", color: "#00a86b", fontWeight: 800 }}>
-          EKONOMI LOKAL
-        </div>
-        <h2
-          style={{
-            fontSize: "1.4rem",
-            fontWeight: 800,
-            margin: "2px 0 1.25rem 0",
-          }}
-        >
-          Katalog UMKM Kecamatan
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "1.25rem",
-          }}
-        >
-          {(umkmList || []).map((item) => (
-            <div
-              key={item.id}
-              style={{
-                backgroundColor: "#ffffff",
-                border: "1px solid #e2e8f0",
-                borderRadius: "12px",
-                overflow: "hidden",
-              }}
-            >
-              <img
-                src={item.image}
-                alt={item.nama}
-                style={{ width: "100%", height: "150px", objectFit: "cover" }}
-              />
-              <div style={{ padding: "1rem" }}>
-                <span
-                  style={{
-                    fontSize: "0.75rem",
-                    color: "#00a86b",
-                    fontWeight: 800,
-                  }}
-                >
-                  {item.kategori}
-                </span>
-                <h3
-                  style={{
-                    fontSize: "1rem",
-                    fontWeight: 800,
-                    margin: "2px 0 4px 0",
-                  }}
-                >
-                  {item.nama}
-                </h3>
-                <div
-                  style={{
-                    fontSize: "0.85rem",
-                    fontWeight: 700,
-                    color: "#2563eb",
-                    marginBottom: "6px",
-                  }}
-                >
-                  {item.harga}
-                </div>
-                <p
-                  style={{
-                    fontSize: "0.8rem",
-                    color: "#64748b",
-                    margin: 0,
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 8. CCTV LIVE STREAM SECTION */}
-      <section
-        id="cctv"
-        style={{
-          scrollMarginTop: "40px",
-          backgroundColor: "#0f172a",
-          color: "#ffffff",
-          padding: "3rem 2rem",
-          marginTop: "2rem",
-        }}
-      >
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div
-            style={{ fontSize: "0.75rem", color: "#4ade80", fontWeight: 800 }}
+            style={{
+              fontSize: "0.8rem",
+              color: "#0284c7",
+              fontWeight: 800,
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+            }}
           >
-            MONITORING LINGKUNGAN
+            EKONOMI LOKAL
           </div>
           <h2
             style={{
-              fontSize: "1.5rem",
-              fontWeight: 800,
-              margin: "2px 0 1.5rem 0",
+              fontSize: "2.2rem",
+              fontWeight: 900,
+              margin: "4px 0 1.5rem 0",
+              color: "#0f172a",
             }}
           >
-            CCTV Live Stream Batununggal
+            Etalase UMKM Batununggal
           </h2>
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "1.5rem",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "2rem",
             }}
           >
-            {(cctvList || []).map((cam) => (
+            {umkmList.map((item) => (
               <div
-                key={cam.id}
+                key={item.id}
                 style={{
-                  backgroundColor: "#1e293b",
-                  border: "1px solid #334155",
-                  borderRadius: "12px",
-                  padding: "1.25rem",
+                  backgroundColor: "#f8fafc",
+                  border: "1px solid #cbd5e1",
+                  borderRadius: "20px",
+                  overflow: "hidden",
+                  boxShadow: "0 8px 25px rgba(0,0,0,0.03)",
                 }}
               >
-                <div
-                  style={{
-                    position: "relative",
-                    height: "180px",
-                    backgroundColor: "#000000",
-                    borderRadius: "8px",
-                    overflow: "hidden",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                    marginBottom: "1rem",
-                  }}
-                  onClick={() => setSelectedCctv(cam)}
-                >
-                  <img
-                    src={cam.img}
-                    alt={cam.name}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      opacity: 0.6,
-                    }}
-                  />
+                <img
+                  src={item.image}
+                  alt={item.nama}
+                  style={{ width: "100%", height: "200px", objectFit: "cover" }}
+                />
+                <div style={{ padding: "1.75rem" }}>
                   <span
                     style={{
-                      position: "absolute",
-                      top: "10px",
-                      left: "10px",
-                      backgroundColor: "#ef4444",
-                      color: "#fff",
-                      fontSize: "0.7rem",
+                      fontSize: "0.75rem",
+                      color: "#0284c7",
                       fontWeight: 800,
-                      padding: "3px 8px",
-                      borderRadius: "10px",
                     }}
                   >
-                    ● LIVE
+                    <ShoppingBag
+                      size={14}
+                      style={{
+                        display: "inline",
+                        verticalAlign: "middle",
+                        marginRight: "4px",
+                      }}
+                    />
+                    {item.kategori}
                   </span>
+                  <h3
+                    style={{
+                      fontSize: "1.2rem",
+                      fontWeight: 800,
+                      margin: "6px 0 6px 0",
+                      color: "#0f172a",
+                    }}
+                  >
+                    {item.nama}
+                  </h3>
                   <div
                     style={{
-                      position: "absolute",
-                      backgroundColor: "rgba(0,168,107,0.8)",
-                      padding: "12px",
-                      borderRadius: "50%",
+                      fontSize: "1rem",
+                      fontWeight: 800,
+                      color: "#0284c7",
+                      marginBottom: "10px",
                     }}
                   >
-                    <Video size={28} color="#fff" />
+                    {item.harga}
                   </div>
+                  <p
+                    style={{
+                      fontSize: "0.95rem",
+                      color: "#475569",
+                      margin: 0,
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {item.desc}
+                  </p>
                 </div>
-                <h4
-                  style={{
-                    margin: "0 0 4px 0",
-                    fontSize: "1rem",
-                    fontWeight: 800,
-                  }}
-                >
-                  {cam.name}
-                </h4>
-                <p style={{ margin: 0, fontSize: "0.8rem", color: "#94a3b8" }}>
-                  📍 {cam.loc}
-                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* MODAL CCTV */}
-      {selectedCctv && (
+      {/* 6. STATISTIK DENGAN IKONOGRAFI SECTION */}
+      <section
+        style={{ padding: "5rem 2.5rem", maxWidth: "1280px", margin: "0 auto" }}
+      >
+        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <span
+            style={{
+              fontSize: "0.8rem",
+              color: "#0284c7",
+              fontWeight: 800,
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+            }}
+          >
+            STATISTIK & MANFAAT TRANSFORMASI
+          </span>
+          <h2
+            style={{
+              fontSize: "2.2rem",
+              fontWeight: 900,
+              margin: "6px 0 0 0",
+              color: "#0f172a",
+            }}
+          >
+            Membangun Ekosistem Terhubung
+          </h2>
+        </div>
+
         <div
           style={{
-            position: "fixed",
-            inset: 0,
-            backgroundColor: "rgba(0,0,0,0.8)",
-            backdropFilter: "blur(6px)",
-            zIndex: 100,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "1rem",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "2rem",
           }}
-          onClick={() => setSelectedCctv(null)}
         >
           <div
             style={{
-              backgroundColor: "#0f172a",
-              border: "1px solid #334155",
-              color: "#fff",
-              borderRadius: "16px",
-              maxWidth: "600px",
-              width: "100%",
-              overflow: "hidden",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={selectedCctv.img}
-              alt={selectedCctv.name}
-              style={{ width: "100%", height: "300px", objectFit: "cover" }}
-            />
-            <div style={{ padding: "1.5rem" }}>
-              <h3
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: 800,
-                  margin: "0 0 4px 0",
-                }}
-              >
-                {selectedCctv.name}
-              </h3>
-              <p
-                style={{
-                  color: "#00a86b",
-                  fontWeight: 700,
-                  margin: "0 0 1.5rem 0",
-                }}
-              >
-                📍 {selectedCctv.loc}
-              </p>
-              <button
-                type="button"
-                onClick={() => setSelectedCctv(null)}
-                style={{
-                  backgroundColor: "#334155",
-                  color: "#fff",
-                  border: "none",
-                  padding: "10px 20px",
-                  borderRadius: "8px",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  width: "100%",
-                }}
-              >
-                Tutup Stream
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 9. FORM PENGADUAN WARGA SECTION */}
-      <section
-        id="pengaduan"
-        style={{
-          scrollMarginTop: "40px",
-          padding: "3rem 2rem",
-          maxWidth: "700px",
-          margin: "2rem auto 0 auto",
-          backgroundColor: "#ffffff",
-          borderRadius: "20px",
-          border: "1px solid #e2e8f0",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ fontSize: "0.75rem", color: "#00a86b", fontWeight: 800 }}>
-          LAYANAN PUBLIK
-        </div>
-        <h2
-          style={{
-            fontSize: "1.4rem",
-            fontWeight: 800,
-            margin: "2px 0 1.5rem 0",
-          }}
-        >
-          Form Pengaduan Warga Online
-        </h2>
-
-        {submitted ? (
-          <div
-            style={{
-              backgroundColor: "#e1f2e5",
-              color: "#1b5e20",
-              padding: "1.25rem",
-              borderRadius: "12px",
-              fontWeight: 700,
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "20px",
+              padding: "2rem",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.02)",
             }}
           >
-            <CheckCircle2 size={20} /> Pengaduan Anda berhasil dikirim ke Kantor
-            Kecamatan!
-          </div>
-        ) : (
-          <form
-            onSubmit={handleSubmitPengaduan}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-              textAlign: "left",
-            }}
-          >
-            <div>
-              <label
-                style={{
-                  fontSize: "0.85rem",
-                  fontWeight: 700,
-                  display: "block",
-                  marginBottom: "4px",
-                }}
-              >
-                Nama Lengkap
-              </label>
-              <input
-                type="text"
-                placeholder="Masukkan nama Anda"
-                value={nama}
-                onChange={(e) => setNama(e.target.value)}
-                required
-                style={{
-                  width: "100%",
-                  padding: "11px",
-                  borderRadius: "8px",
-                  border: "1px solid #cbd5e1",
-                  boxSizing: "border-box",
-                }}
-              />
+            <div style={{ color: "#0284c7", marginBottom: "1rem" }}>
+              <BarChart3 size={32} />
             </div>
-
-            <div>
-              <label
-                style={{
-                  fontSize: "0.85rem",
-                  fontWeight: 700,
-                  display: "block",
-                  marginBottom: "4px",
-                }}
-              >
-                Asal Kelurahan
-              </label>
-              <select
-                value={kelurahan}
-                onChange={(e) => setKelurahan(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "11px",
-                  borderRadius: "8px",
-                  border: "1px solid #cbd5e1",
-                  boxSizing: "border-box",
-                }}
-              >
-                <option value="Maleer">Kelurahan Maleer</option>
-                <option value="Samoja">Kelurahan Samoja</option>
-                <option value="Kebon Jayanti">Kelurahan Kebon Jayanti</option>
-                <option value="Kebon Gedang">Kelurahan Kebon Gedang</option>
-                <option value="Binong">Kelurahan Binong</option>
-                <option value="Cibunun">Kelurahan Cibunun</option>
-                <option value="Gumuruh">Kelurahan Gumuruh</option>
-                <option value="Roa Malaka">Kelurahan Roa Malaka</option>
-              </select>
-            </div>
-
-            <div>
-              <label
-                style={{
-                  fontSize: "0.85rem",
-                  fontWeight: 700,
-                  display: "block",
-                  marginBottom: "4px",
-                }}
-              >
-                Isi Pengaduan / Aspirasi
-              </label>
-              <textarea
-                placeholder="Tuliskan pengaduan Anda secara rinci..."
-                value={pesan}
-                onChange={(e) => setPesan(e.target.value)}
-                required
-                rows={4}
-                style={{
-                  width: "100%",
-                  padding: "11px",
-                  borderRadius: "8px",
-                  border: "1px solid #cbd5e1",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
-
-            <button
-              type="submit"
+            <h4
               style={{
-                backgroundColor: "#00a86b",
-                color: "#fff",
-                border: "none",
-                padding: "12px",
-                borderRadius: "8px",
-                fontWeight: 700,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                fontSize: "0.95rem",
-                marginTop: "0.5rem",
+                fontSize: "1.15rem",
+                fontWeight: 800,
+                margin: "0 0 8px 0",
               }}
             >
-              <Send size={16} /> Kirim Pengaduan Kecamatan
-            </button>
-          </form>
-        )}
+              Efisiensi Administrasi
+            </h4>
+            <p
+              style={{
+                fontSize: "0.95rem",
+                color: "#64748b",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              Proses birokrasi yang sebelumnya memakan waktu berhari-hari kini
+              dapat diselesaikan dalam hitungan menit via otomatisasi.
+            </p>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "20px",
+              padding: "2rem",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.02)",
+            }}
+          >
+            <div style={{ color: "#0284c7", marginBottom: "1rem" }}>
+              <ShieldCheck size={32} />
+            </div>
+            <h4
+              style={{
+                fontSize: "1.15rem",
+                fontWeight: 800,
+                margin: "0 0 8px 0",
+              }}
+            >
+              Transparansi Informasi
+            </h4>
+            <p
+              style={{
+                fontSize: "0.95rem",
+                color: "#64748b",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              Akses terbuka terhadap program pembangunan dan laporan kinerja
+              kelurahan yang dapat dipantau langsung oleh seluruh warga.
+            </p>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: "20px",
+              padding: "2rem",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.02)",
+            }}
+          >
+            <div style={{ color: "#0284c7", marginBottom: "1rem" }}>
+              <Users size={32} />
+            </div>
+            <h4
+              style={{
+                fontSize: "1.15rem",
+                fontWeight: 800,
+                margin: "0 0 8px 0",
+              }}
+            >
+              Program Literasi Digital
+            </h4>
+            <p
+              style={{
+                fontSize: "0.95rem",
+                color: "#64748b",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              Pelatihan berkelanjutan bagi warga untuk memaksimalkan penggunaan
+              teknologi demi peningkatan ekonomi UMKM lokal.
+            </p>
+          </div>
+        </div>
       </section>
 
-      {/* 10. FOOTER */}
-      <footer
+      {/* 7. PETA STATIK RESPONSIF & BATAS WILAYAH SECTION */}
+      <section
+        id="peta"
         style={{
-          backgroundColor: "#1e293b",
-          color: "#94a3b8",
-          padding: "2.5rem 1rem",
-          textAlign: "center",
-          marginTop: "4rem",
-          fontSize: "0.85rem",
+          scrollMarginTop: "150px",
+          padding: "4rem 2.5rem",
+          maxWidth: "1280px",
+          margin: "0 auto",
         }}
       >
-        <p
-          style={{ margin: "0 0 0.5rem 0", fontWeight: 800, color: "#ffffff" }}
-        >
-          © 2026 Portal Resmi Kecamatan Batununggal - Desa Digital LSKK
-        </p>
-        <button
-          type="button"
-          onClick={() => setCurrentPage("admin")}
+        <div
           style={{
-            background: "transparent",
-            color: "#4ade80",
-            border: "1px solid rgba(74,222,128,0.3)",
-            padding: "6px 14px",
-            borderRadius: "6px",
-            fontSize: "0.75rem",
-            cursor: "pointer",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            marginBottom: "2rem",
+            flexWrap: "wrap",
+            gap: "1rem",
           }}
         >
-          🔒 Akses Dashboard Admin Kecamatan
-        </button>
+          <div>
+            <div
+              style={{
+                fontSize: "0.8rem",
+                color: "#0284c7",
+                fontWeight: 800,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+              }}
+            >
+              PEMETAAN WILAYAH
+            </div>
+            <h2
+              style={{
+                fontSize: "2.2rem",
+                fontWeight: 900,
+                margin: "4px 0 0 0",
+                color: "#0f172a",
+              }}
+            >
+              Peta Statik Kelurahan Batununggal
+            </h2>
+          </div>
+          <div
+            style={{
+              backgroundColor: "#e0f2fe",
+              color: "#0369a1",
+              padding: "8px 16px",
+              borderRadius: "12px",
+              fontSize: "0.85rem",
+              fontWeight: 700,
+              border: "1px solid #bae6fd",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+            }}
+          >
+            <MapPin size={16} /> Bandung, Jawa Barat
+          </div>
+        </div>
+
+        <div
+          style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "24px",
+            border: "1px solid #e2e8f0",
+            padding: "1.5rem",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.04)",
+          }}
+        >
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              paddingTop: "45%",
+              borderRadius: "16px",
+              overflow: "hidden",
+              border: "1px solid #cbd5e1",
+            }}
+          >
+            <iframe
+              title="Peta Kelurahan Batununggal"
+              src="https://maps.google.com/maps?q=Batununggal%20Bandung&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                border: "none",
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              marginTop: "1.75rem",
+              padding: "1rem",
+              backgroundColor: "#f8fafc",
+              borderRadius: "16px",
+              border: "1px solid #e2e8f0",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                fontSize: "0.9rem",
+                fontWeight: 800,
+                color: "#0284c7",
+                marginBottom: "1rem",
+              }}
+            >
+              <Compass size={18} /> BATAS WILAYAH KELURAHAN BATUNUNGGAL
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                gap: "1rem",
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#fff",
+                  padding: "12px 16px",
+                  borderRadius: "12px",
+                  border: "1px solid #cbd5e1",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "#64748b",
+                    fontWeight: 700,
+                  }}
+                >
+                  UTARA
+                </span>
+                <div
+                  style={{
+                    fontSize: "0.95rem",
+                    fontWeight: 800,
+                    color: "#0f172a",
+                  }}
+                >
+                  Kecamatan Lengkong
+                </div>
+              </div>
+              <div
+                style={{
+                  backgroundColor: "#fff",
+                  padding: "12px 16px",
+                  borderRadius: "12px",
+                  border: "1px solid #cbd5e1",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "#64748b",
+                    fontWeight: 700,
+                  }}
+                >
+                  SELATAN
+                </span>
+                <div
+                  style={{
+                    fontSize: "0.95rem",
+                    fontWeight: 800,
+                    color: "#0f172a",
+                  }}
+                >
+                  Kecamatan Bandung Kidul
+                </div>
+              </div>
+              <div
+                style={{
+                  backgroundColor: "#fff",
+                  padding: "12px 16px",
+                  borderRadius: "12px",
+                  border: "1px solid #cbd5e1",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "#64748b",
+                    fontWeight: 700,
+                  }}
+                >
+                  TIMUR
+                </span>
+                <div
+                  style={{
+                    fontSize: "0.95rem",
+                    fontWeight: 800,
+                    color: "#0f172a",
+                  }}
+                >
+                  Kecamatan Kiaracondong
+                </div>
+              </div>
+              <div
+                style={{
+                  backgroundColor: "#fff",
+                  padding: "12px 16px",
+                  borderRadius: "12px",
+                  border: "1px solid #cbd5e1",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "#64748b",
+                    fontWeight: 700,
+                  }}
+                >
+                  BARAT
+                </span>
+                <div
+                  style={{
+                    fontSize: "0.95rem",
+                    fontWeight: 800,
+                    color: "#0f172a",
+                  }}
+                >
+                  Kecamatan Regol
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FORM LAPOR MASALAH WITH SIDE BANNER IMAGE */}
+      <section
+        id="lapor"
+        style={{
+          scrollMarginTop: "150px",
+          padding: "5rem 2.5rem",
+          maxWidth: "1280px",
+          margin: "0 auto",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "28px",
+            border: "1px solid #e2e8f0",
+            padding: "2.5rem",
+            boxShadow: "0 20px 40px rgba(0,0,0,0.04)",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "3rem",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <img
+              src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&q=80&w=800"
+              alt="Layanan Pengaduan Warga"
+              style={{
+                width: "100%",
+                height: "280px",
+                objectFit: "cover",
+                borderRadius: "20px",
+                marginBottom: "1.5rem",
+              }}
+            />
+            <span
+              style={{
+                fontSize: "0.8rem",
+                color: "#0284c7",
+                fontWeight: 800,
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+              }}
+            >
+              LAYANAN PENGADUAN WARGA
+            </span>
+            <h2
+              style={{
+                fontSize: "2.2rem",
+                fontWeight: 900,
+                margin: "6px 0 1rem 0",
+                color: "#0f172a",
+              }}
+            >
+              Sampaikan Aspirasi & Laporan Masalah
+            </h2>
+            <p
+              style={{
+                color: "#64748b",
+                fontSize: "1rem",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              Laporkan kendala fasilitas publik, pengurusan dokumen, atau saran
+              langsung kepada tim pelayanan Kelurahan Batununggal.
+            </p>
+          </div>
+
+          <div>
+            {submitted ? (
+              <div
+                style={{
+                  backgroundColor: "#e0f2fe",
+                  color: "#0369a1",
+                  padding: "1.5rem",
+                  borderRadius: "16px",
+                  fontWeight: 700,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  fontSize: "1.05rem",
+                }}
+              >
+                <CheckCircle2 size={24} /> Laporan Anda telah berhasil terkirim
+                dan sedang diproses oleh petugas!
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubmitPengaduan}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1.25rem",
+                }}
+              >
+                <div>
+                  <label
+                    style={{
+                      fontSize: "0.9rem",
+                      fontWeight: 800,
+                      display: "block",
+                      marginBottom: "8px",
+                      color: "#0f172a",
+                    }}
+                  >
+                    Nama Lengkap Warga
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Masukkan nama lengkap Anda"
+                    value={nama}
+                    onChange={(e) => setNama(e.target.value)}
+                    required
+                    style={{
+                      width: "100%",
+                      padding: "14px 16px",
+                      borderRadius: "12px",
+                      border: "1px solid #cbd5e1",
+                      boxSizing: "border-box",
+                      backgroundColor: "#f8fafc",
+                      fontSize: "1rem",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label
+                    style={{
+                      fontSize: "0.9rem",
+                      fontWeight: 800,
+                      display: "block",
+                      marginBottom: "8px",
+                      color: "#0f172a",
+                    }}
+                  >
+                    RT / Wilayah
+                  </label>
+                  <select
+                    value={rt}
+                    onChange={(e) => setRt(e.target.value)}
+                    style={{
+                      width: "100%",
+                      padding: "14px 16px",
+                      borderRadius: "12px",
+                      border: "1px solid #cbd5e1",
+                      boxSizing: "border-box",
+                      backgroundColor: "#f8fafc",
+                      fontSize: "1rem",
+                      outline: "none",
+                    }}
+                  >
+                    <option value="01">RT 01 Batununggal</option>
+                    <option value="02">RT 02 Batununggal</option>
+                    <option value="03">RT 03 Batununggal</option>
+                    <option value="04">RT 04 Batununggal</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    style={{
+                      fontSize: "0.9rem",
+                      fontWeight: 800,
+                      display: "block",
+                      marginBottom: "8px",
+                      color: "#0f172a",
+                    }}
+                  >
+                    Pesan / Laporan
+                  </label>
+                  <textarea
+                    placeholder="Tuliskan isi laporan Anda secara detail..."
+                    value={pesan}
+                    onChange={(e) => setPesan(e.target.value)}
+                    required
+                    rows={4}
+                    style={{
+                      width: "100%",
+                      padding: "14px 16px",
+                      borderRadius: "12px",
+                      border: "1px solid #cbd5e1",
+                      boxSizing: "border-box",
+                      backgroundColor: "#f8fafc",
+                      fontSize: "1rem",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  style={{
+                    backgroundColor: "#0284c7",
+                    color: "#fff",
+                    border: "none",
+                    padding: "16px",
+                    borderRadius: "12px",
+                    fontWeight: 800,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "10px",
+                    fontSize: "1.05rem",
+                    marginTop: "0.5rem",
+                    boxShadow: "0 6px 20px rgba(2,132,199,0.25)",
+                  }}
+                >
+                  <Send size={18} /> Kirim Laporan Sekarang
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. FOOTER */}
+      <footer
+        style={{
+          backgroundColor: "#0f172a",
+          color: "#cbd5e1",
+          padding: "4rem 2.5rem 2.5rem 2.5rem",
+          marginTop: "5rem",
+          fontSize: "0.9rem",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "3rem",
+            marginBottom: "3rem",
+            borderBottom: "1px solid #334155",
+            paddingBottom: "3rem",
+          }}
+        >
+          <div>
+            <h3
+              style={{
+                fontSize: "1.2rem",
+                fontWeight: 900,
+                color: "#fff",
+                marginBottom: "1rem",
+              }}
+            >
+              Kelurahan Batununggal
+            </h3>
+            <p
+              style={{
+                margin: 0,
+                color: "#94a3b8",
+                lineHeight: 1.6,
+                fontSize: "0.95rem",
+              }}
+            >
+              Portal Layanan Publik Digital terpadu. Mewujudkan pelayanan
+              efisien, transparan, dan inklusif bagi seluruh warga.
+            </p>
+          </div>
+          <div>
+            <h4
+              style={{
+                fontSize: "1rem",
+                fontWeight: 900,
+                color: "#fff",
+                marginBottom: "1rem",
+              }}
+            >
+              Tautan Cepat
+            </h4>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
+              <span
+                style={{
+                  color: "#94a3b8",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  cursor: "pointer",
+                }}
+              >
+                <Globe size={16} /> Portal Kabupaten / Kota
+              </span>
+              <span
+                style={{
+                  color: "#94a3b8",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  cursor: "pointer",
+                }}
+              >
+                <Globe size={16} /> Kemitraan Digital
+              </span>
+            </div>
+          </div>
+          <div>
+            <h4
+              style={{
+                fontSize: "1rem",
+                fontWeight: 900,
+                color: "#fff",
+                marginBottom: "1rem",
+              }}
+            >
+              Kebijakan & Ketentuan
+            </h4>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
+              <span style={{ color: "#94a3b8", cursor: "pointer" }}>
+                Kebijakan Privasi Data
+              </span>
+              <span style={{ color: "#94a3b8", cursor: "pointer" }}>
+                Syarat & Ketentuan Layanan
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "1.5rem",
+          }}
+        >
+          <p style={{ margin: 0, color: "#94a3b8", fontSize: "0.85rem" }}>
+            © 2026 Pemerintah Kelurahan Batununggal. Dibawah naungan Pemerintah
+            Kota Bandung.
+          </p>
+          <button
+            type="button"
+            onClick={() => setCurrentPage("admin")}
+            style={{
+              background: "transparent",
+              color: "#38bdf8",
+              border: "1px solid rgba(56,189,248,0.4)",
+              padding: "8px 16px",
+              borderRadius: "8px",
+              fontSize: "0.8rem",
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
+            🔒 Akses Login Admin
+          </button>
+        </div>
       </footer>
     </div>
   );
